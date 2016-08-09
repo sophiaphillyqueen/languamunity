@@ -12,6 +12,8 @@ sub prime {
   my $lc_maybe;
   my $lc_altern;
   my $lc_answr;
+  my @lc_alter_a; # List of prompt-lines in response to alternate answers
+  my $lc_anoncia;
   
   &chobak_json::clone($_[0],$lc_qus);
   $lc_phase = 1;
@@ -19,11 +21,26 @@ sub prime {
   # Phase 2: Handling of a wrong answer
   # Phase 3: EXITING:
   $lc_promptx = $lc_qus->{'q'};
+  $lc_anoncia = 'ASKING';
+  
+  
+  # Now we obtain the lists of lines to add to the prompt if provided
+  # with an answer that is technically not incorrect, but is not the
+  # one we're looking for.
+  {
+    my $lc2_a;
+    $lc2_a = $lc_qus->{'o'};
+    @lc_alter_a = ();
+    if ( ref($lc2_a) eq 'ARRAY' )
+    {
+      @lc_alter_a = @$lc2_a;
+    }
+  }
   
   while ( $lc_phase < 1.5 )
   {
     system("clear");
-    system("echo","ASKING:\n");
+    system("echo",$lc_anoncia . ":\n");
     system("echo","-n",$lc_promptx . "\n\n:> ");
     
     $lc_answr = &chobak_jsio::inln();
@@ -32,7 +49,15 @@ sub prime {
       $lc_phase = 3;
     }
     
-    if ( $lc_phase < 2.5 ) { $lc_phase = 2; }
+    if ( $lc_phase < 2.5 )
+    {
+      $lc_phase = 2;
+      if ( &match_any_of($lc_answr,\@lc_alter_a,$lc_promptx) )
+      {
+        $lc_phase = 1;
+        $lc_anoncia = 'BUT WE SEEK ANOTHER ANSWER';
+      }
+    }
   }
   
   while ( $lc_phase < 2.5 )
@@ -68,6 +93,54 @@ sub prime {
     system("echo","-n","\nAlso acceptable woud be:\n" . $lc_altern);
   }
   return 10;
+}
+
+sub may_match_this {
+  my $lc_list;
+  my @lc_llist;
+  my $lc_item;
+  $lc_list = $_[1];
+  @lc_llist = @$lc_list;
+  $lc_item = @lc_llist;
+  if ( $lc_item < 1.5 ) { return ( 0 > 5 ); }
+  shift(@lc_llist);
+  
+  foreach $lc_item (@lc_llist)
+  {
+    if ( $lc_item eq $_[0] ) { return ( 10 > 5 ); }
+  }
+  
+  return ( 0 > 5 );
+}
+
+sub match_any_of {
+  my $lc_full_list;
+  my $lc_survive;
+  my $lc_prompt;
+  my @lc_nomatch;
+  my $lc_tis_this;
+  my $lc_offhit;
+  
+  $lc_survive = 0;
+  @lc_nomatch = ();
+  $lc_full_list = $_[1];
+  $lc_prompt = $_[2];
+  
+  foreach $lc_offhit (@$lc_full_list)
+  {
+    $lc_tis_this = &may_match_this($_[0],$lc_offhit);
+    if ( $lc_tis_this )
+    {
+      $lc_survive = 10;
+      $lc_prompt .= "\n" . $lc_offhit->[0];
+    } else {
+      @lc_nomatch = (@lc_nomatch,$lc_offhit);
+    }
+  }
+  
+  @$lc_full_list = @lc_nomatch;
+  if ( $lc_survive > 5 ) { $_[2] = $lc_prompt; }
+  return ( $lc_survive > 5 );
 }
 
 sub savefail {
