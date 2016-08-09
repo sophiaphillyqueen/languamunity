@@ -8,6 +8,21 @@ my $memdir;
 
 $memdir = $ENV{"HOME"} . "/.chobakwrap/languamunity";
 system("mkdir","-p",$memdir);
+system("rm","-rf",&fjsnm('fail'));
+
+
+
+
+sub savefail {
+  my $lc_filn;
+  my $lc_cont;
+  
+  $lc_filn = &fjsnm('fail');
+  $lc_cont = &chobak_json::readf($lc_filn);
+  @$lc_cont = (@$lc_cont,@_);
+  &chobak_json::savef($lc_cont,$lc_filn);
+}
+
 
 sub fjsnm {
   return($memdir . '/' . $_[0] . '.json');

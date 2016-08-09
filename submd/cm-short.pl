@@ -65,6 +65,7 @@ sub decktohand {
   $lc_a = &chobak_cstruc::ry_hat($arcosa->{'deck'});
   $lc_crt = 1;
   if ( $lc_a->{'crit'} > 1 ) { $lc_crt = $lc_a->{'crit'}; }
+  $lc_a->{'crit'} = 1;
   
   while ( $lc_crt > 0.5 )
   {
@@ -73,10 +74,23 @@ sub decktohand {
   }
 }
 
+sub megadeckthand {
+  if ( &chobak_cstruc::counto($arcosa->{'deck'}) < 0.5 ) { return; }
+  &decktohand(); &decktohand();
+  if ( &chobak_cstruc::counto($arcosa->{'deck'}) < 0.5 ) { return; }
+  &decktohand(); &decktohand();
+  if ( &chobak_cstruc::counto($arcosa->{'deck'}) < 0.5 ) { return; }
+  &decktohand(); &decktohand();
+  if ( &chobak_cstruc::counto($arcosa->{'deck'}) < 0.5 ) { return; }
+  &decktohand(); &decktohand();
+  if ( &chobak_cstruc::counto($arcosa->{'deck'}) < 0.5 ) { return; }
+  &decktohand(); &decktohand();
+}
+
 sub make_a_question {
   my $lc_qus;
   
-  &decktohand(); &decktohand();
+  &megadeckthand();
   if ( &chobak_cstruc::counto($arcosa->{'hand'}) < 0.5 ) { return 0; }
   
   $lc_qus = &chobak_cstruc::ry_hat($arcosa->{'hand'});
@@ -89,7 +103,7 @@ sub make_a_question {
 }
 
 
-
+system("clear");
 &me::longterm::save($arcosa);
 
 

@@ -10,8 +10,8 @@ my $ths_res;
 my $cmdn;
 my $cont;
 
-$the_yes = '';
-$the_no = '';
+$the_yes = "yes\n";
+$the_no = "NO!!!!!!!!!!!!!\n";
 
 $the_file = &argola::getrg();
 if ( &argola::yet() ) { $the_yes = &argola::getrg() . "\n"; }

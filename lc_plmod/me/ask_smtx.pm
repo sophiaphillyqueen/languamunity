@@ -3,6 +3,7 @@ use strict;
 use chobak_json;
 use chobak_jsio;
 use chobak_cstruc;
+use me::longterm;
 
 sub prime {
   my $lc_qus;
@@ -37,12 +38,14 @@ sub prime {
   while ( $lc_phase < 2.5 )
   {
     &chobak_cstruc::ry_push($_[1]->{'main'}->{'hand'},$_[0]);
-    if ( rand(10) > 8 )
+    
+    #if ( rand(10) > 2 )
+    if ( 5 > 2 )
     {
       &chobak_cstruc::ry_push($_[1]->{'main'}->{'deck'},$_[0]);
     }
     
-    &savefail({
+    &me::longterm::savefail({
       'qus' => $lc_qus,
       'gvn' => $lc_answr,
     });
