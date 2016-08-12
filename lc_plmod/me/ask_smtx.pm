@@ -6,6 +6,14 @@ use chobak_cstruc;
 use me::longterm;
 
 sub prime {
+  my $lc_useit;
+  
+  &chobak_json::clone($_[0],$lc_useit);
+  $_[1]->{'pristine'} = $_[0];
+  &artifice($lc_useit,$_[1]);
+}
+
+sub artifice {
   my $lc_qus;
   my $lc_phase;
   my $lc_promptx;
@@ -15,7 +23,9 @@ sub prime {
   my @lc_alter_a; # List of prompt-lines in response to alternate answers
   my $lc_anoncia;
   
-  &chobak_json::clone($_[0],$lc_qus);
+  #&chobak_json::clone($_[0],$lc_qus);
+  $lc_qus = $_[0];
+  
   $lc_phase = 1;
   # Phase 1: No wrong answer has been given - nor any right answer
   # Phase 2: Handling of a wrong answer
@@ -62,12 +72,12 @@ sub prime {
   
   while ( $lc_phase < 2.5 )
   {
-    &chobak_cstruc::ry_push($_[1]->{'main'}->{'hand'},$_[0]);
+    &chobak_cstruc::ry_push($_[1]->{'main'}->{'hand'},$_[1]->{'pristine'});
     
     #if ( rand(10) > 2 )
     if ( 5 > 2 )
     {
-      &chobak_cstruc::ry_push($_[1]->{'main'}->{'deck'},$_[0]);
+      &chobak_cstruc::ry_push($_[1]->{'main'}->{'deck'},$_[1]->{'pristine'});
     }
     
     &me::longterm::savefail({

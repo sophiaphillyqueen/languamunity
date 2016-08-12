@@ -16,8 +16,30 @@ sub hashfrom {
   
   foreach $lc_each (@$lc_ref)
   {
-    if ( ref($lc_each) eq 'HASH' ) { @lc_ret = (@lc_ret,$lc_each); }
-    if ( ref($lc_each) eq 'ARRAY' ) { @lc_ret = (@lc_ret,&hashfrom($lc_each)); }
+    if ( ref($lc_each) eq 'HASH' )
+    {
+      my $lc3_a;
+      my $lc3_b;
+      my $lc3_c;
+      
+      $lc3_a = 0;
+      if ( !(defined($_[1]->{'typ'})) ) { $lc3_a = 10; }
+      
+      if ( $lc3_a < 5 )
+      {
+        $lc3_b = $_[1]->{'typ'};
+        if ( ref($lc3_b) eq 'ARRAY' )
+        {
+          foreach $lc3_c (@$lc3_b)
+          {
+            if ( $lc3_c eq $lc_each->{'typ'} ) { $lc3_a = 10; }
+          }
+        }
+      }
+      
+      if ( $lc3_a > 5 ) { @lc_ret = (@lc_ret,$lc_each); }
+    }
+    if ( ref($lc_each) eq 'ARRAY' ) { @lc_ret = (@lc_ret,&hashfrom($lc_each,$_[1])); }
   }
   
   return @lc_ret;
@@ -58,7 +80,7 @@ sub one_file_hash {
     return @lc_ret;
   }
   
-  return(&hashfrom(&chobak_json::readf($_[0])));
+  return(&hashfrom(&chobak_json::readf($_[0]),{}));
 }
 
 1;

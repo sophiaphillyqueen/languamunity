@@ -57,6 +57,9 @@ sub formatref {
     $_[0] = $lc_vl;
   }
   
+  # Now we make sure that this structure has a queue:
+  &chobak_cstruc::force_hash_has_array($lc_vl,'queue');
+  
   # Now we make sure that this structure has the deck:
   &chobak_cstruc::force_hash_has_array($lc_vl,'deck');
   

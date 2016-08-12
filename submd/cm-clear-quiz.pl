@@ -9,6 +9,7 @@ my $arcosa;
 
 $arcosa = &me::longterm::load();
 
+$arcosa->{'queue'} = [];
 $arcosa->{'deck'} = [];
 $arcosa->{'hand'} = [];
 

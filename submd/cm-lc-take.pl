@@ -19,7 +19,9 @@ while ( &argola::yet() )
   $eachfcon = &chobak_json::readf($eachfile);
   if ( ref($eachfcon) eq 'ARRAY' )
   {
-    @$deckref = (@$deckref,&me::extrac::hashfrom($eachfcon));
+    @$deckref = (@$deckref,&me::extrac::hashfrom($eachfcon,{
+      'typ' => ['smtx'],
+    }));
   }
 }
 
