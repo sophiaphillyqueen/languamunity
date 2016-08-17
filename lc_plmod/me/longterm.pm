@@ -66,6 +66,12 @@ sub formatref {
   # Now make sure that the structure has a hand:
   &chobak_cstruc::force_hash_has_array($lc_vl,'hand');
   
+  # Now a space is needed for the name categories
+  &chobak_cstruc::force_hash_has_hash($lc_vl,'names');
+  
+  # And other input-related records (such as ID-number of latest name)
+  &chobak_cstruc::force_hash_has_hash($lc_vl,'inrc');
+  
   # And, of course, we need some place to store the settings:
   &chobak_cstruc::force_hash_has_hash($lc_vl,'stng');
 }

@@ -9,11 +9,8 @@ my $arcosa;
 
 $arcosa = &me::longterm::load();
 
-$arcosa->{'queue'} = [];
-$arcosa->{'deck'} = [];
-$arcosa->{'hand'} = [];
 $arcosa->{'names'} = {};
-$arcosa->{'inrc'} = {};
+$arcosa->{'inrc'}->{'nameid'} = 0;
 
 
 &me::longterm::save($arcosa);

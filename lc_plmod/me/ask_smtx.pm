@@ -10,7 +10,7 @@ sub prime {
   
   &chobak_json::clone($_[0],$lc_useit);
   $_[1]->{'pristine'} = $_[0];
-  &artifice($lc_useit,$_[1]);
+  return &artifice($lc_useit,$_[1]);
 }
 
 sub artifice {
@@ -30,7 +30,12 @@ sub artifice {
   # Phase 1: No wrong answer has been given - nor any right answer
   # Phase 2: Handling of a wrong answer
   # Phase 3: EXITING:
-  $lc_promptx = $lc_qus->{'q'};
+  $lc_promptx = '';
+  $lc_promptx .= $lc_qus->{'lang'}->[0];
+  $lc_promptx .= ' -> ';
+  $lc_promptx .= $lc_qus->{'lang'}->[1];
+  $lc_promptx .= "\n\n";
+  $lc_promptx .= $lc_qus->{'q'};
   $lc_anoncia = 'ASKING';
   
   
