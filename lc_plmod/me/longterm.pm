@@ -29,13 +29,18 @@ sub fjsnm {
 }
 
 sub load {
+  return &load_quiz_file($memdir . '/main-file.json');
+}
+
+sub load_quiz_file {
   my $lc_vl;
   
   # First we load what is previously in the file - and assure that
   # it is a hash:
-  $lc_vl = &chobak_json::readf($memdir . '/main-file.json');
+  $lc_vl = &chobak_json::readf($_[0]);
   
   &formatref($lc_vl);
+  $lc_vl->{'filename'} = $_[0];
   
   return $lc_vl;
 }
@@ -44,7 +49,37 @@ sub save {
   my $lc_vl;
   $lc_vl = $_[0];
   &formatref($lc_vl);
-  &chobak_json::savef($lc_vl,$memdir . '/main-file.json');
+  &chobak_json::savef($lc_vl,$lc_vl->{'filename'});
+}
+
+sub load_core {
+  my $lc_corefile;
+  my $lc_vl;
+  
+  $lc_corefile = $memdir . '/core-file.json';
+  $lc_vl = &chobak_json::readf($lc_corefile);
+  
+  # We must force the root element of the file to be a HASH
+  if ( ref($lc_vl) ne 'HASH' ) { $lc_vl = {}; }
+  
+  $lc_vl->{'filename'} = $lc_corefile;
+  
+  &chobak_cstruc::force_hash_has_hash($lc_vl,'units');
+  
+  return $lc_vl;
+}
+
+sub load_hash {
+  my $lc_vl;
+  
+  $lc_vl = &chobak_json::readf($_[0]);
+  
+  # We must force the root element of the file to be a HASH
+  if ( ref($lc_vl) ne 'HASH' ) { $lc_vl = {}; }
+  
+  $lc_vl->{'filename'} = $_[0];
+  
+  return $lc_vl;
 }
 
 sub formatref {
