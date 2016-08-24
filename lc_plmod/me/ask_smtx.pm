@@ -4,12 +4,14 @@ use chobak_json;
 use chobak_jsio;
 use chobak_cstruc;
 use me::longterm;
+use me::otherans;
 
 sub prime {
   my $lc_useit;
   
   &chobak_json::clone($_[0],$lc_useit);
   $_[1]->{'pristine'} = $_[0];
+  $_[1]->{'remedial'} = [$_[0]];
   return &artifice($lc_useit,$_[1]);
 }
 
@@ -22,6 +24,8 @@ sub artifice {
   my $lc_answr;
   my @lc_alter_a; # List of prompt-lines in response to alternate answers
   my $lc_anoncia;
+  
+  &me::otherans::do_clear();
   
   #&chobak_json::clone($_[0],$lc_qus);
   $lc_qus = $_[0];
@@ -79,6 +83,7 @@ sub artifice {
   {
     &chobak_cstruc::ry_push($_[1]->{'main'}->{'hand'},$_[1]->{'pristine'});
     
+    
     #if ( rand(10) > 2 )
     if ( 5 > 2 )
     {
@@ -105,7 +110,8 @@ sub artifice {
   system("echo","\nCORRECT:");
   if ( $lc_altern ne '' )
   {
-    system("echo","-n","\nAlso acceptable woud be:\n" . $lc_altern);
+    #system("echo","-n","\nAlso acceptable woud be:\n" . $lc_altern);
+    &me::otherans::do_set($lc_altern);
   }
   return 10;
 }
