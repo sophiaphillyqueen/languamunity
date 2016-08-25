@@ -38,7 +38,11 @@ sub before_prompt {
   my $lc_out;
   
   $lc_difren = int(($timer_termin - &chobaktime::nowo()) + 0.2);
-  if ( $lc_difren < 0 ) { $lc_difren = 0; }
+  if ( $lc_difren < 0 )
+  {
+    system("echo","TIME EXPIRED");
+    return;
+  }
   
   $lc_out = &chobaktime::tsubdv($lc_difren,60,2);
   $lc_out = &chobaktime::tsubdv($lc_difren,60,2) . ':' . $lc_out;
