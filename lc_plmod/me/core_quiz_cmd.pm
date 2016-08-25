@@ -10,6 +10,17 @@ my $arcosa;
 my $lastcomd = '';
 my $handsize;
 
+my $before_prompt = [];
+my $before_resume = [];
+
+sub set_b_prompt {
+  @$before_prompt = (@$before_prompt,@_);
+}
+
+sub set_b_resume {
+  @$before_resume = (@$before_resume,@_);
+}
+
 sub set_arcosa_var {
   $arcosa = $_[0];
   $handsize = 20;
@@ -22,16 +33,36 @@ sub set_arcosa_var {
 }
 
 
+sub may_resume {
+  my $lc_sfar;
+  my $lc_test;
+  $lc_sfar = ( 10 > 5 );
+  
+  foreach $lc_test (@$before_resume)
+  {
+    if ( $lc_sfar )
+    {
+      $lc_sfar = ( (&$lc_test()) > 5 );
+    }
+  }
+  return $lc_sfar;
+}
+
+
 sub anotround {
   # Declearations:
   
   while ( $lastcomd eq 'h' ) { &get_me_help(); }
   
-  if ( $lastcomd eq '' ) { return ( &make_a_question() > 5 ); }
-  if ( $lastcomd eq 'save' ) { &me::longterm::save($arcosa); return(10 > 5); }
+  if ( $lastcomd eq '' )
+  {
+    if ( !(&may_resume()) ) { return ( 0 > 5 ); }
+    return ( &make_a_question() > 5 );
+  }
+  if ( $lastcomd eq 'save' ) { &me::longterm::save($arcosa); return(&may_resume()); }
   if ( $lastcomd eq 'x' ) { return(0 > 5); }
   
-  return(10 > 5);
+  return(&may_resume());
 }
 
 sub get_me_help {
@@ -48,6 +79,12 @@ sub get_me_help {
 
 sub enter_the_prompt {
   my $lc_prmp;
+  my $lc_step;
+  
+  foreach $lc_step (@$before_prompt)
+  {
+    &$lc_step();
+  }
   
   $lc_prmp = "\n";
   $lc_prmp .= &chobak_cstruc::counto($arcosa->{'hand'});
