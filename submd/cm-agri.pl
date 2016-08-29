@@ -40,6 +40,11 @@ sub funct__lm__on {
 } &argola::setopt('-lm',\&funct__lm__on);
 
 
+sub funct__cnt__on {
+  &chobak_hook02::onto($phase_in,\&content_count);
+} &argola::setopt('-cnt',\&funct__cnt__on);
+
+
 
 sub func__f__on {
   my $lc_rg;
@@ -65,6 +70,10 @@ sub content_in {
     }
   );
   @$itemas = (@$itemas,@lc_cont_b);
+}
+
+sub content_count {
+  system("echo",&chobak_cstruc::counto($itemas));
 }
 
 sub content_limit {
