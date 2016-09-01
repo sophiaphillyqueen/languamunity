@@ -98,22 +98,13 @@ sub enter_the_prompt {
 
 sub decktohand {
   my $lc_a;
-  my $lc_crt;
   $lc_a = &chobak_cstruc::counto($arcosa->{'hand'});
   if ( $lc_a > ( $handsize - 0.5 ) ) { return; }
   $lc_a = &chobak_cstruc::counto($arcosa->{'deck'});
   if ( $lc_a < ( 0.5 ) ) { return; }
   
   $lc_a = &chobak_cstruc::ry_hat($arcosa->{'deck'});
-  $lc_crt = 1;
-  if ( $lc_a->{'crit'} > 1 ) { $lc_crt = $lc_a->{'crit'}; }
-  $lc_a->{'crit'} = 1;
-  
-  while ( $lc_crt > 0.5 )
-  {
-    &chobak_cstruc::ry_push($arcosa->{'hand'},$lc_a);
-    $lc_crt = int($lc_crt - 0.8);
-  }
+  &chobak_cstruc::ry_push($arcosa->{'hand'},$lc_a);
 }
 
 sub megadeckthand {

@@ -11,7 +11,8 @@ sub prime {
   
   &chobak_json::clone($_[0],$lc_useit);
   $_[1]->{'pristine'} = $_[0];
-  $_[1]->{'remedial'} = [$_[0]];
+  $_[1]->{'err_deck'} = [$_[0]];
+  $_[1]->{'err_hand'} = [$_[0]];
   return &artifice($lc_useit,$_[1]);
 }
 
@@ -81,14 +82,11 @@ sub artifice {
   
   while ( $lc_phase < 2.5 )
   {
-    &chobak_cstruc::ry_push($_[1]->{'main'}->{'hand'},$_[1]->{'pristine'});
+    &chobak_cstruc::ry_m_push($_[1]->{'main'}->{'hand'},$_[1]->{'err_hand'});
     
     
     #if ( rand(10) > 2 )
-    if ( 5 > 2 )
-    {
-      &chobak_cstruc::ry_push($_[1]->{'main'}->{'deck'},$_[1]->{'pristine'});
-    }
+    &chobak_cstruc::ry_m_push($_[1]->{'main'}->{'deck'},$_[1]->{'err_deck'});
     
     &me::longterm::savefail({
       'qus' => $lc_qus,

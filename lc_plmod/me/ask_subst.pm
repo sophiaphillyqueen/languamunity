@@ -13,6 +13,7 @@ sub prime {
   my $lc_q_lang;
   my $lc_a_lang;
   my $lc_neoques; # The 'smtx' rendition of the question
+  my $lc_cp_neoques; # Copy of the 'smtx' rendition of the question
   my $lc_all_can_be;
   my $lc_all_alterns;
   my $lc_each_altern;
@@ -68,6 +69,9 @@ sub prime {
   
   #&chobinfodig::dumpy('BANDUK',$lc_neoques);
   $_[1]->{'pristine'} = $_[0];
+  &chobak_json::clone($lc_neoques,$lc_cp_neoques);
+  $_[1]->{'err_deck'} = [$_[0]];
+  $_[1]->{'err_hand'} = [$lc_cp_neoques];
   return &me::ask_smtx::artifice($lc_neoques,$_[1]);
   
   #system("echo","HERE WILL EVENTUALLY GO A STRING-SUBSTITUTION QUESTION:");
