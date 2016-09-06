@@ -4,6 +4,18 @@ use chobak_json;
 use wraprg;
 use Scalar::Util qw(looks_like_number);
 
+my $mdul_info_on = 0;
+my $mdul_info_val;
+
+sub set_info {
+  $mdul_info_val = $_[0];
+  $mdul_info_on = 10;
+}
+
+sub unset_info {
+  $mdul_info_on = 0;
+}
+
 sub hashfrom {
   my $lc_ref;
   my @lc_ret;
@@ -49,6 +61,10 @@ sub hashfrom {
           }
         }
       }
+      
+      # This is where we add the FS Tag info (if applicable)
+      if ( $mdul_info_on > 5 ) { $lc_each->{'srcinfo'} = $mdul_info_val; }
+      
       
       if ( $lc3_a > 5 ) { @lc_ret = (@lc_ret,$lc_each); }
     }
