@@ -42,9 +42,9 @@ $qsend = &findstat();
 
 $qsadv = int(($qsstart - $qsend) + 0.2);
 
-system("echo",("START QUIZ-SIZE: " . $qsstart));
-system("echo",("  END QUIZ-SIZE: " . $qsend));
-system("echo",("       PROGRESS: " . $qsadv));
+system("echo",("  START QUIZ-SIZE: " . $qsstart));
+system("echo",("    END QUIZ-SIZE: " . $qsend));
+system("echo",("NET CARDS CLEARED: " . $qsadv));
 
 
 
