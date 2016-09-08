@@ -8,14 +8,21 @@ my $arcosa;
 my $qsstart;
 my $qsend;
 my $qsadv;
+my $qfile_set = 0;
+my $qfile_val;
 
 me::set_timer::these_opts();
+
+sub opto__quizfile__do {
+  $qfile_val = &argola::getrg();
+  $qfile_set = 10;
+} &argola::setopt('-quizfile',\&opto__quizfile__do);
 
 &argola::runopts();
 
 
-
-$arcosa = &me::longterm::load();
+if ( $qfile_set > 5 ) { $arcosa = &me::longterm::load_quiz_file($qfile_val); }
+else { $arcosa = &me::longterm::load(); }
 
 $qsstart = &findstat();
 sub findstat {

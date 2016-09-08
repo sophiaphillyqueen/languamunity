@@ -15,6 +15,12 @@ sub zonto {
   
   $lc_rg = $_[0];
   
+  if ( $lc_rg eq '-f' )
+  {
+    $arcosa = &me::longterm::load_quiz_file(&argola::getrg());
+    return;
+  }
+  
   if ( $lc_rg eq 'deck' )
   {
     system("echo",&chobak_cstruc::counto($arcosa->{'deck'}));
