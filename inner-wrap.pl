@@ -3,8 +3,14 @@ use argola;
 use wraprg;
 use plelorec;
 
+
 my $comname;
 $comname = &argola::getrg();
+if ( $comname eq '-c' )
+{
+  &plelorec::opt_to_perl('-c');
+  $comname = &argola::getrg();
+}
 
 sub try_in_our_subdir {
   my $lc_cmfl;
