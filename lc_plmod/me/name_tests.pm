@@ -189,6 +189,41 @@ sub add_the_lang_namevar {
 
 
 
+sub numofeach {
+  # Rg0 - Ref to an array of arrays
+  # Rg1 - An element number for an element of each element of Rg0 (non-neg integer)
+  # Ret - Ref to an array of element #Rg1 of each element in array Rg0
+  my $lc_ref;
+  my $lc_goal;
+  my $lc_ret;
+  my $lc_each;
+  my $lc_ok;
+  
+  ($lc_ref,$lc_goal) = @_;
+  $lc_ret = [];
+  
+  if ( ref($lc_ref) ne 'ARRAY' ) { return $lc_ret; }
+  
+  foreach $lc_each (@$lc_ref)
+  {
+    $lc_ok = 10;
+    if ( ref($lc_each) ne 'ARRAY' ) { $lc_ok = 0; }
+    
+    if ( $lc_ok > 5 )
+    {
+      if ( $lc_goal > ( &chobak_cstruc::counto($lc_each) - 0.5 ) ) { $lc_ok = 0; }
+    }
+    
+    if ( $lc_ok > 5 )
+    {
+      @$lc_ret = (@$lc_ret,$lc_each->[$lc_goal]);
+    }
+  }
+  return $lc_ret;
+}
+
+
+
 
 
 1;
