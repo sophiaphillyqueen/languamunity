@@ -4,7 +4,6 @@ use chobak_json;
 use me::name_tests;
 use me::name_work;
 use me::ask_smtx;
-use chobinfodig;
 
 sub prime {
   my $lc_clone;
@@ -67,7 +66,6 @@ sub prime {
     $lc_neoques->{'o'} = $lc2_altern;
   }
   
-  #&chobinfodig::dumpy('BANDUK',$lc_neoques);
   $_[1]->{'pristine'} = $_[0];
   &chobak_json::clone($lc_neoques,$lc_cp_neoques);
   $_[1]->{'err_deck'} = [$_[0]];

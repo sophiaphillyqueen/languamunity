@@ -1,6 +1,5 @@
 package me::name_work;
 use strict;
-use chobinfodig;
 
 sub resolve {
   # Rg0 -- Array-ref of sources to resolve
@@ -41,7 +40,6 @@ sub resolve {
     }
   }
   
-  #&chobinfodig::dumpy('ZADUMP',$lc_ret,$lc_all_sources,$lc_all_scenarios);
   return $lc_ret;
 }
 
