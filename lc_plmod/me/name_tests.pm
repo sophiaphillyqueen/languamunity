@@ -68,6 +68,9 @@ sub get_a_namevar {
 
 
 sub fits_req {
+  # This function identifies returns a decabool indicating whether
+  # or not a name resource being put on trial meets the requirements
+  # set forth by the question.
   # Rg0 -- Name-resource on trial
   # Rg1 -- Array of languages that must be supported
   # Rg2 -- Array of modes that must be supported
@@ -88,12 +91,12 @@ sub fits_req {
   {
     $lc_lang_res = $_[0]->{'val'}->{$lc_each_lang};
     if ( ref($lc_lang_res) ne 'ARRAY' ) { return ( 0 > 5 ); }
+    $lc_ok = 0;
     foreach $lc_scenario (@$lc_lang_res)
     {
-      $lc_ok = 0;
       if ( &good_scenario($lc_scenario,$_[2]) > 5 ) { $lc_ok = 10; }
-      if ( $lc_ok < 5 ) { return ( 0 > 5 ); }
     }
+    if ( $lc_ok < 5 ) { return ( 0 > 5 ); }
   }
   return ( 10 > 5 );
 }
@@ -185,41 +188,6 @@ sub add_the_lang_namevar {
     }
   }
   @$lc_all_scenarios_dst_ref = (@lc_all_scenarios_dst_ray);
-}
-
-
-
-sub numofeach {
-  # Rg0 - Ref to an array of arrays
-  # Rg1 - An element number for an element of each element of Rg0 (non-neg integer)
-  # Ret - Ref to an array of element #Rg1 of each element in array Rg0
-  my $lc_ref;
-  my $lc_goal;
-  my $lc_ret;
-  my $lc_each;
-  my $lc_ok;
-  
-  ($lc_ref,$lc_goal) = @_;
-  $lc_ret = [];
-  
-  if ( ref($lc_ref) ne 'ARRAY' ) { return $lc_ret; }
-  
-  foreach $lc_each (@$lc_ref)
-  {
-    $lc_ok = 10;
-    if ( ref($lc_each) ne 'ARRAY' ) { $lc_ok = 0; }
-    
-    if ( $lc_ok > 5 )
-    {
-      if ( $lc_goal > ( &chobak_cstruc::counto($lc_each) - 0.5 ) ) { $lc_ok = 0; }
-    }
-    
-    if ( $lc_ok > 5 )
-    {
-      @$lc_ret = (@$lc_ret,$lc_each->[$lc_goal]);
-    }
-  }
-  return $lc_ret;
 }
 
 
