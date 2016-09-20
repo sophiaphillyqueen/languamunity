@@ -98,6 +98,12 @@ sub formatref {
   # Now we make sure that this structure has the deck:
   &chobak_cstruc::force_hash_has_array($lc_vl,'deck');
   
+  # Now we make sure we have the out-corner piles as the
+  # destinations for questions to which you got the
+  # wrong answer.
+  &chobak_cstruc::force_hash_has_array($lc_vl,'redeck');
+  &chobak_cstruc::force_hash_has_array($lc_vl,'rehand');
+  
   # Now make sure that the structure has a hand:
   &chobak_cstruc::force_hash_has_array($lc_vl,'hand');
   

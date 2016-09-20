@@ -27,12 +27,12 @@ else { $arcosa = &me::longterm::load(); }
 $qsstart = &findstat();
 sub findstat {
   my $lc_a;
-  my $lc_b;
-  my $lc_c;
-  $lc_a = &chobak_cstruc::counto($arcosa->{'hand'});
-  $lc_b = &chobak_cstruc::counto($arcosa->{'deck'});
-  $lc_c = int($lc_a + $lc_b + 0.2);
-  return $lc_c;
+  $lc_a = 0;
+  $lc_a = int( &chobak_cstruc::counto($arcosa->{'hand'}) + $lc_a + 0.2);
+  $lc_a = int( &chobak_cstruc::counto($arcosa->{'deck'}) + $lc_a + 0.2);
+  $lc_a = int( &chobak_cstruc::counto($arcosa->{'rehand'}) + $lc_a + 0.2);
+  $lc_a = int( &chobak_cstruc::counto($arcosa->{'redeck'}) + $lc_a + 0.2);
+  return $lc_a;
 }
 
 &me::core_quiz_cmd::set_arcosa_var($arcosa);

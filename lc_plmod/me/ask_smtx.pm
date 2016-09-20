@@ -82,11 +82,11 @@ sub artifice {
   
   while ( $lc_phase < 2.5 )
   {
-    &chobak_cstruc::ry_m_push($_[1]->{'main'}->{'hand'},$_[1]->{'err_hand'});
+    &chobak_cstruc::ry_m_push($_[1]->{'main'}->{'rehand'},$_[1]->{'err_hand'});
     
     
     #if ( rand(10) > 2 )
-    &chobak_cstruc::ry_m_push($_[1]->{'main'}->{'deck'},$_[1]->{'err_deck'});
+    &chobak_cstruc::ry_m_push($_[1]->{'main'}->{'redeck'},$_[1]->{'err_deck'});
     
     &me::longterm::savefail({
       'qus' => $lc_qus,
