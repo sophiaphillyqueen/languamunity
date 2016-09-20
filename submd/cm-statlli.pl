@@ -1,5 +1,6 @@
 use strict;
 use me::longterm;
+use me::tally_basics;
 use chobak_cstruc;
 use argola;
 
@@ -23,20 +24,20 @@ sub zonto {
   
   if ( $lc_rg eq 'deck' )
   {
-    system("echo",&chobak_cstruc::counto($arcosa->{'deck'}));
+    system("echo",&me::tally_basics::complete_deck($arcosa));
     return;
   }
   
   if ( $lc_rg eq 'hand' )
   {
-    system("echo",&chobak_cstruc::counto($arcosa->{'hand'}));
+    system("echo",&me::tally_basics::complete_hand($arcosa));
     return;
   }
   
   if ( $lc_rg eq 'deck+hand' )
   {
-    $lc_clc = &chobak_cstruc::counto($arcosa->{'deck'});
-    $lc_neo = &chobak_cstruc::counto($arcosa->{'hand'});
+    $lc_clc = &me::tally_basics::complete_deck($arcosa);
+    $lc_neo = &me::tally_basics::complete_hand($arcosa);
     $lc_clc = int($lc_clc + $lc_neo + 0.2);
     system("echo",$lc_clc);
     return;
