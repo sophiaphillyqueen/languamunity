@@ -122,7 +122,7 @@ sub decktohand_slc {
   $lc_siz_rdeck = &chobak_cstruc::counto($arcosa->{'redeck'});
   if ( $lc_siz_rdeck < 0.5 ) { return 0; }
   
-  $lc_rand_val = rand($handsize * 3);
+  $lc_rand_val = rand($handsize * 6);
   if ( $lc_siz_rdeck > $lc_rand_val ) { return 10; }
   return 0;
 }
