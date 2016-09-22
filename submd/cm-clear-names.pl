@@ -17,7 +17,7 @@ sub opto__f__do {
 
 &argola::runopts();
 
-if ( $quiz_f_set > 5 ) { &me::longterm::load_quiz_file($quiz_f_loc); }
+if ( $quiz_f_set > 5 ) { $arcosa = &me::longterm::load_quiz_file($quiz_f_loc); }
 else { $arcosa = &me::longterm::load(); }
 
 $arcosa->{'names'} = {};

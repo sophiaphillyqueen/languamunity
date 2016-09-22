@@ -11,6 +11,9 @@ system("mkdir","-p",$memdir);
 system("rm","-rf",&fjsnm('fail'));
 
 
+sub get_crit_d {
+  return $memdir;
+}
 
 
 sub savefail {
