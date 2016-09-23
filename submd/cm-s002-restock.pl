@@ -9,8 +9,8 @@ use Cwd qw(realpath);
 
 use chobinfodig;
 
-my $desired_quiz_size = 400;
-my $max_questions = 600;
+#my $desired_quiz_size = 400;
+my $max_questions = 250;
 
 my $cntrpram; # Parameters for opening the control file
 my $cntrobj; # Control object for the control-file data
