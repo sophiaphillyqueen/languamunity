@@ -6,8 +6,7 @@ use strict;
 use argola;
 use chobak_jsonf;
 use me::navig_index;
-
-use chobinfodig;
+use me::scoring;
 
 my $cntrobj;
 my $cntrpram;
@@ -67,15 +66,17 @@ if ( !(&me::navig_index::lesson_allowed($iface)) )
   $cntrd->{'lcnon'} = [@lc_nlist];
 }
 
+# Make sure the scoring starts from the default spot
+$cntrd->{'explevel'} = &me::scoring::new_raw_score();
 
+$cntrobj->save();
 $quizfile = $cntrd->{'quizfile'};
-if ( -f $quizfile )
+if ( $quizfile ne '' )
 {
   system("languamunity","clear-quiz","-f",$quizfile,"-pmiss");
+  system("languamunity","s002-restock",$cntrobj->reffile());
 }
 
-#&chobinfodig::dumpy('COOLO',$lessonrec);
-$cntrobj->save();
 system("echo",("ADDED LESSON: " . $lessongoal));
 
 
