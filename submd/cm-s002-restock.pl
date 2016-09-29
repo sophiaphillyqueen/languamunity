@@ -3,6 +3,7 @@ use argola;
 use wraprg;
 use chobak_jsonf;
 use chobak_json;
+use chobak_routines;
 use me::longterm;
 use File::Basename;
 use Cwd qw(realpath);
@@ -23,7 +24,6 @@ my $lcnhash; # The hashed-by-lesson form of the index of lessons
 my $critdir; # The directory of languamunity's local-to-account data
 my $scratdir; # The scratchpad directory
 my $scratfile; # A JSON file within the scratch directory
-my $shrank_since_add;
 
 my $lcnlist; # The list of lessons - the current belt
 my $anitem; # The tracer variable for going through arrays
@@ -31,6 +31,11 @@ my @used_resd = ();
 
 my $countor = 0; # How many rounds of material have been added so far?
 
+# SHRINKAGE VARIAGLES:
+my $shrink_not_too_much_again;
+my $shrink_new_lesson_code;
+my $shrink_pro_max;
+my $shrink_pro_count;
 
 
 # First the litany that loads the Control File and the Index
@@ -140,18 +145,54 @@ while ( ( &howmany() < $max_questions ) && ( $countor < $max_questions ) )
   system('rm','-rf',$scratdir);
   system('mkdir',$scratdir);
   $scratfile = $scratdir . '/holding.json';
-  $shrank_since_add = 10;
+  &reset_shrinkage_global_vars();
   foreach $lc_lcn_tag (@$lcnlist) { &agri_one_lesson($lc_lcn_tag); }
   system("languamunity",'qsp-take','-to',$quizfile,'-in',$scratfile);
+}
+
+sub reset_shrinkage_global_vars {
+  $shrink_not_too_much_again = 0;
+  $shrink_pro_max = 8;
+  $shrink_pro_count = 0;
 }
 sub time_to_shrink {
   my $lc_cm;
   my $lc_osiz;
   my $lc_nsiz;
+  my $lc_shrink_steps;
+  
+  $lc_shrink_steps = $shrink_pro_max;
+  if ( defined($lcnhash->{$shrink_new_lesson_code}->{'shrinksteps'}) )
+  {
+    $lc_shrink_steps = &chobak_routines::bestof_num(1,[1,$shrink_pro_max,$lcnhash->{$shrink_new_lesson_code}->{'shrinksteps'}]);
+  }
+  $shrink_pro_count = int($shrink_pro_count + $lc_shrink_steps + 0.2);
+  if ( $shrink_pro_count < ( $shrink_pro_max - 0.5 ) )
+  {
+    system("echo",(': ' . $shrink_new_lesson_code . ' : SKIP :'));
+    return;
+  }
+  $shrink_pro_count = 0;
   
   $lc_cm = "languamunity agri -f " . &wraprg::bsc($scratfile) . ' -cnt';
   $lc_osiz = `$lc_cm`; chomp($lc_osiz);
-  $lc_nsiz = int(($lc_osiz * .9) + 2.2);
+  
+  {
+    my $lc2_a;
+    my $lc2_b;
+    my $lc2_c;
+    my $lc2_z;
+    $lc2_a = $shrink_not_too_much_again;
+    $lc2_b = int($lc2_a + 1.2);
+    $lc2_c = int($lc2_a - 0.8);
+    $lc2_z = &chobak_routines::bestof_num(4,[$lc2_a,$lc2_b,$lc2_c,$lc_osiz,5,100]);
+    
+    $shrink_not_too_much_again = $lc2_z;
+    #$shrink_not_too_much_again = $lc_osiz;
+  }
+  system("echo",(": " . $shrink_new_lesson_code . ' : ' . $lc_osiz . ' -> ' . $shrink_not_too_much_again . ' :'));
+  
+  $lc_nsiz = int(($shrink_not_too_much_again * .9) + 2.2);
   system('languamunity','agri','-ft',$scratfile,'-lm',$lc_nsiz);
 }
 sub agri_one_lesson {
@@ -160,11 +201,10 @@ sub agri_one_lesson {
   my $lc_file_item;
   my $lc_file_location;
   
-  if ( $shrank_since_add < 5 )
-  {
-    &time_to_shrink();
-    $shrank_since_add = 10;
-  }
+  $shrink_new_lesson_code = $_[0];
+  
+  
+  &time_to_shrink();
   
   $lc_lcn_rec = $lcnhash->{$_[0]};
   if ( ref($lc_lcn_rec) ne 'HASH' ) { return; }
@@ -175,7 +215,6 @@ sub agri_one_lesson {
   {
     $lc_file_location = &relativo($lc_file_item,$cntrd->{'indexfile'});
     system("languamunity",'agri','-ft',$scratfile,'-f',$lc_file_location);
-    $shrank_since_add = 0;
   }
 }
 
