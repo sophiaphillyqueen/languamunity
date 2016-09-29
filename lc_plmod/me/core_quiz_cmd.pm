@@ -128,6 +128,39 @@ sub decktohand_slc {
 }
 
 sub megadeckthand {
+  my $lc_tmhold;
+  my $lc_ok_reload;
+  my $lc_mdeck_count;
+  my $lc_mhand_count;
+  my $lc_rand_elem;
+  
+  # First, we make sure that the deck and hand swap if the hand
+  # is empty. Using this strategy (rather than the old one) we
+  # can assure that no questions sit in the Eternal Rot.
+  if ( &chobak_cstruc::counto($arcosa->{'hand'}) < 0.5 )
+  {
+    $lc_tmhold = $arcosa->{'hand'};
+    $arcosa->{'hand'} = $arcosa->{'deck'};
+    $arcosa->{'deck'} = $lc_tmhold;
+  }
+  
+  # Now we decide if it is time to reload a question from the
+  # Missed Deck to the Missed Hand
+  $lc_mdeck_count = &chobak_cstruc::counto($arcosa->{'redeck'});
+  $lc_mhand_count = &chobak_cstruc::counto($arcosa->{'rehand'});
+  $lc_rand_elem = rand(50 + ( $lc_mhand_count * 3 ) );
+  $lc_ok_reload = ( $lc_rand_elem < $lc_mdeck_count );
+  if ( $lc_ok_reload ) { $lc_ok_reload = ( $lc_mdeck_count > 0.5 ); }
+  
+  # And we do the reload if applicable
+  if ( $lc_ok_reload )
+  {
+    $lc_tmhold = &chobak_cstruc::ry_hat($arcosa->{'redeck'});
+    &chobak_cstruc::ry_push($arcosa->{'rehand'},$lc_tmhold);
+  }
+}
+
+sub old_megadeckthand {
   #if ( &chobak_cstruc::counto($arcosa->{'deck'}) < 0.5 ) { return; }
   #&decktohand(); &decktohand();
   #if ( &chobak_cstruc::counto($arcosa->{'deck'}) < 0.5 ) { return; }

@@ -125,7 +125,7 @@ sub add_the_res {
 sub howmany {
   my $lc_cm;
   my $lc_rt;
-  $lc_cm = "languamunity statlli -f " . &wraprg::bsc($quizfile) . " deck+hand";
+  $lc_cm = "languamunity statlli -f " . &wraprg::bsc($quizfile) . " unasked";
   $lc_rt = `$lc_cm`;
   chomp($lc_rt);
   return $lc_rt;
