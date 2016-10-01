@@ -32,6 +32,9 @@ sub findstat {
   $lc_a = int( &chobak_cstruc::counto($arcosa->{'deck'}) + $lc_a + 0.2);
   $lc_a = int( &chobak_cstruc::counto($arcosa->{'rehand'}) + $lc_a + 0.2);
   $lc_a = int( &chobak_cstruc::counto($arcosa->{'redeck'}) + $lc_a + 0.2);
+  $lc_a = int( &chobak_cstruc::counto($arcosa->{'hnd01'}) + $lc_a + 0.2);
+  $lc_a = int( &chobak_cstruc::counto($arcosa->{'hnd02'}) + $lc_a + 0.2);
+  $lc_a = int( &chobak_cstruc::counto($arcosa->{'hnd03'}) + $lc_a + 0.2);
   return $lc_a;
 }
 

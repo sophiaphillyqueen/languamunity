@@ -24,6 +24,10 @@ sub opto__pmiss_do {
 
 $arcosa->{'queue'} = [];
 $arcosa->{'deck'} = [];
+$arcosa->{'hnd01'} = [];
+$arcosa->{'hnd02'} = [];
+$arcosa->{'hnd03'} = [];
+$arcosa->{'mtdeck'} = [];
 
 if ( $dlt_missed > 5 )
 {

@@ -5,6 +5,7 @@ use chobak_json;
 use chobak_cstruc;
 use me::extrac;
 use me::core_take_cmd;
+use me::tally_basics;
 
 my $arcosa;
 my $deckref;
@@ -39,7 +40,7 @@ foreach $eachfile ( @inpfiles )
 }
 
 
-
+&me::tally_basics::shift_unasked_in_arcos($arcosa);
 &me::longterm::save($arcosa);
 
 

@@ -110,6 +110,13 @@ sub formatref {
   # Now make sure that the structure has a hand:
   &chobak_cstruc::force_hash_has_array($lc_vl,'hand');
   
+  # Now the intermediate waiting-slots between:
+  &chobak_cstruc::force_hash_has_array($lc_vl,'hnd01');
+  &chobak_cstruc::force_hash_has_array($lc_vl,'hnd02');
+  &chobak_cstruc::force_hash_has_array($lc_vl,'hnd03');
+  # And the one that is NOT slated for deprecation
+  &chobak_cstruc::force_hash_has_array($lc_vl,'mtdeck');
+  
   # Now a space is needed for the name categories
   &chobak_cstruc::force_hash_has_hash($lc_vl,'names');
   

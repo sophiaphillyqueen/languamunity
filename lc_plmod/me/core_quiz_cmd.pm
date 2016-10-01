@@ -81,6 +81,8 @@ sub get_me_help {
 sub enter_the_prompt {
   my $lc_prmp;
   my $lc_step;
+  my $lc_dxref;
+  my $lc_dxeach;
   
   foreach $lc_step (@$before_prompt)
   {
@@ -88,13 +90,25 @@ sub enter_the_prompt {
   }
   
   $lc_prmp = "\n";
-  $lc_prmp .= &chobak_cstruc::counto($arcosa->{'hand'});
-  $lc_prmp .= ':';
   $lc_prmp .= &chobak_cstruc::counto($arcosa->{'rehand'});
   $lc_prmp .= ':';
-  $lc_prmp .= &chobak_cstruc::counto($arcosa->{'deck'});
-  $lc_prmp .= ':';
   $lc_prmp .= &chobak_cstruc::counto($arcosa->{'redeck'});
+  $lc_prmp .= ': - :';
+  $lc_prmp .= &chobak_cstruc::counto($arcosa->{'hand'});
+  $lc_dxref = $arcosa->{'mtdeck'};
+  foreach $lc_dxeach (@$lc_dxref)
+  {
+    $lc_prmp .= ':';
+    $lc_prmp .= &chobak_cstruc::counto($lc_dxeach);
+  }
+  $lc_prmp .= ': - :';
+  $lc_prmp .= &chobak_cstruc::counto($arcosa->{'hnd01'});
+  $lc_prmp .= ':';
+  $lc_prmp .= &chobak_cstruc::counto($arcosa->{'hnd02'});
+  $lc_prmp .= ':';
+  $lc_prmp .= &chobak_cstruc::counto($arcosa->{'hnd03'});
+  $lc_prmp .= ':';
+  $lc_prmp .= &chobak_cstruc::counto($arcosa->{'deck'});
   $lc_prmp .= "[\"h\"/\"x\"/..] JUST [enter] TO CONTINUE:> ";
   
   system("echo","-n",$lc_prmp);
@@ -137,12 +151,20 @@ sub megadeckthand {
   # First, we make sure that the deck and hand swap if the hand
   # is empty. Using this strategy (rather than the old one) we
   # can assure that no questions sit in the Eternal Rot.
-  if ( &chobak_cstruc::counto($arcosa->{'hand'}) < 0.5 )
-  {
-    $lc_tmhold = $arcosa->{'hand'};
-    $arcosa->{'hand'} = $arcosa->{'deck'};
-    $arcosa->{'deck'} = $lc_tmhold;
-  }
+  #if ( &chobak_cstruc::counto($arcosa->{'hand'}) < 0.5 )
+  #{
+  #  $lc_tmhold = $arcosa->{'hand'};
+  #  $arcosa->{'hand'} = $arcosa->{'deck'};
+  #  $arcosa->{'deck'} = $lc_tmhold;
+  #}
+  #
+  # SECOND VERSION ALSO COMMENTED OUT
+  #&chobak_cstruc::upfrs_hrf($arcosa,'deck',$arcosa,'hnd03');
+  #&chobak_cstruc::upfrs_hrf($arcosa,'hnd03',$arcosa,'hnd02');
+  #&chobak_cstruc::upfrs_hrf($arcosa,'hnd02',$arcosa,'hnd01');
+  #&chobak_cstruc::upfrs_hrf($arcosa,'hnd01',$arcosa,'hand');
+  #
+  &me::tally_basics::shift_unasked_in_arcos($arcosa);
   
   # Now we decide if it is time to reload a question from the
   # Missed Deck to the Missed Hand

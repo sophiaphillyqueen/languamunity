@@ -45,7 +45,7 @@ sub zonto {
   
   if ( $lc_rg eq 'unasked' )
   {
-    $lc_clc = &chobak_cstruc::counto($arcosa->{'deck'});
+    $lc_clc = &me::tally_basics::complete_unsk_deck($arcosa);
     $lc_neo = &chobak_cstruc::counto($arcosa->{'hand'});
     $lc_clc = int($lc_clc + $lc_neo + 0.2);
     system("echo",$lc_clc);
