@@ -51,6 +51,7 @@ $qsend = &findstat();
 &me::longterm::save($arcosa);
 
 $qsadv = int(($qsstart - $qsend) + 0.2);
+if ( $qsend > $qsstart ) { $qsadv = int($qsadv - 1.2); }
 
 system("echo",("  START QUIZ-SIZE: " . $qsstart));
 system("echo",("    END QUIZ-SIZE: " . $qsend));

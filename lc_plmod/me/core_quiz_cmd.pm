@@ -52,6 +52,8 @@ sub may_resume {
 sub demand_extra_review {
   my $lc_count;
   my $lc_set;
+  my $lc_all;
+  my $lc_item;
   system("echo","-n","\n\nTHIS FEATURE MAY NOT BE EFFECTIVE AS IT IS IN-DEVELOPMENT");
   system("echo","-n","\n\nVoluntary equivalent of now many wrong answers? (1-10) ");
   $lc_count = &chobak_io::inln();
@@ -59,6 +61,12 @@ sub demand_extra_review {
   $lc_set = &me::tally_basics::opto_review_out();
   while ( $lc_count > 0.5 )
   {
+    $lc_all = $lc_set->{'rehand'};
+    if ( ref($lc_all) ne 'ARRAY' ) { $lc_all = []; }
+    foreach $lc_item (@$lc_all) { if ( ref($lc_item) eq 'HASH' ) { &chobak_cstruc::ry_push($arcosa->{'rehand'},$lc_item); } }
+    $lc_all = $lc_set->{'redeck'};
+    if ( ref($lc_all) ne 'ARRAY' ) { $lc_all = []; }
+    foreach $lc_item (@$lc_all) { if ( ref($lc_item) eq 'HASH' ) { &chobak_cstruc::ry_push($arcosa->{'redeck'},$lc_item); } }
     $lc_count = int($lc_count - 0.8);
   }
   system("echo","\n");
