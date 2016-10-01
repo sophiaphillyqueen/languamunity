@@ -52,14 +52,13 @@ sub may_resume {
 sub demand_extra_review {
   my $lc_count;
   my $lc_set;
+  system("echo","-n","\n\nTHIS FEATURE MAY NOT BE EFFECTIVE AS IT IS IN-DEVELOPMENT");
   system("echo","-n","\n\nVoluntary equivalent of now many wrong answers? (1-10) ");
   $lc_count = &chobak_io::inln();
   if ( $lc_count > 10 ) { $lc_count = 10; }
   $lc_set = &me::tally_basics::opto_review_out();
   while ( $lc_count > 0.5 )
   {
-    if ( defined($lc_set->{'rehand'}) ) { &chobak_cstruc::ry_push($arcosa->{'rehand'},$lc_set->{'rehand'}); }
-    if ( defined($lc_set->{'redeck'}) ) { &chobak_cstruc::ry_push($arcosa->{'redeck'},$lc_set->{'redeck'}); }
     $lc_count = int($lc_count - 0.8);
   }
   system("echo","\n");
