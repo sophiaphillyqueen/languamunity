@@ -5,6 +5,7 @@ use chobak_jsio;
 use chobak_cstruc;
 use me::longterm;
 use me::otherans;
+use me::tally_basics;
 
 sub prime {
   my $lc_useit;
@@ -25,6 +26,21 @@ sub artifice {
   my $lc_answr;
   my @lc_alter_a; # List of prompt-lines in response to alternate answers
   my $lc_anoncia;
+  
+  # Make sure that it is possible for the calling program to initiate
+  # additional voluntary review:
+  {
+    my $lc2_set;
+    my $lc2_vl;
+    
+    $lc2_set = {};
+    &chobak_json::clone($_[1]->{'err_deck'},$lc2_vl);
+    $lc2_set->{'redeck'} = $lc2_vl;
+    &chobak_json::clone($_[1]->{'err_hand'},$lc2_vl);
+    $lc2_set->{'rehand'} = $lc2_vl;
+    
+    &me::tally_basics::opto_review_in($lc2_set);
+  }
   
   &me::otherans::do_clear();
   

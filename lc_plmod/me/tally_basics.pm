@@ -2,6 +2,8 @@ package me::tally_basics;
 use chobak_cstruc;
 use strict;
 
+my $opto_review_var;
+
 sub complete_hand {
   my $lc_a;
   $lc_a = &chobak_cstruc::counto($_[0]->{'hand'});
@@ -57,6 +59,14 @@ sub shift_unasked_in_arcos {
   {
     $_[0]->{'hand'} = &chobak_cstruc::ry_shift($_[0]->{'mtdeck'});
   }
+}
+
+sub opto_review_in {
+  $opto_review_var = $_[0];
+}
+
+sub opto_review_out {
+  return $opto_review_var;
 }
 
 

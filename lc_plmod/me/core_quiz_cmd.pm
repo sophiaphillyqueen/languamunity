@@ -49,11 +49,36 @@ sub may_resume {
   return $lc_sfar;
 }
 
+sub demand_extra_review {
+  my $lc_count;
+  my $lc_set;
+  system("echo","-n","\n\nVoluntary equivalent of now many wrong answers? (1-10) ");
+  $lc_count = &chobak_io::inln();
+  if ( $lc_count > 10 ) { $lc_count = 10; }
+  $lc_set = &me::tally_basics::opto_review_out();
+  while ( $lc_count > 0.5 )
+  {
+    if ( defined($lc_set->{'rehand'}) ) { &chobak_cstruc::ry_push($arcosa->{'rehand'},$lc_set->{'rehand'}); }
+    if ( defined($lc_set->{'redeck'}) ) { &chobak_cstruc::ry_push($arcosa->{'redeck'},$lc_set->{'redeck'}); }
+    $lc_count = int($lc_count - 0.8);
+  }
+  system("echo","\n");
+}
+
 
 sub anotround {
   # Declearations:
+  my $lc_aloop;
   
-  while ( $lastcomd eq 'h' ) { &get_me_help(); }
+  $lc_aloop = 10;
+  while ( $lc_aloop > 5 )
+  {
+    $lc_aloop = 0;
+    if ( $lastcomd eq 'h' ) { $lc_aloop = 10; &get_me_help(); }
+    if ( $lastcomd eq 'rvu' ) { $lc_aloop = 10; &demand_extra_review(); }
+    
+    if ( $lc_aloop > 5 ) { &enter_the_prompt(); }
+  }
   
   if ( $lastcomd eq '' )
   {
@@ -72,8 +97,8 @@ sub get_me_help {
   $lc_dt .= "h - - - Display this help message:\n";
   $lc_dt .= "save -- Save status - and continue the quiz:\n";
   $lc_dt .= "x - - - Save status and exit the program:\n";
+  $lc_dt .= "rvu - - Request additional volutnary review:\n";
   system("echo","-n",$lc_dt);
-  &enter_the_prompt();
 }
 
 
@@ -170,7 +195,7 @@ sub megadeckthand {
   # Missed Deck to the Missed Hand
   $lc_mdeck_count = &chobak_cstruc::counto($arcosa->{'redeck'});
   $lc_mhand_count = &chobak_cstruc::counto($arcosa->{'rehand'});
-  $lc_rand_elem = rand(50 + ( $lc_mhand_count * 3 ) );
+  $lc_rand_elem = rand(90 + ( $lc_mhand_count * 3 ) );
   $lc_ok_reload = ( $lc_rand_elem < $lc_mdeck_count );
   if ( $lc_ok_reload ) { $lc_ok_reload = ( $lc_mdeck_count > 0.5 ); }
   
