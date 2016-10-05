@@ -5,6 +5,7 @@ use me::longterm;
 use me::ask_smtx;
 use me::ask_subst;
 use me::tally_basics;
+use me::valus;
 
 
 my $arcosa;
@@ -202,7 +203,7 @@ sub megadeckthand {
   # Missed Deck to the Missed Hand
   $lc_mdeck_count = &chobak_cstruc::counto($arcosa->{'redeck'});
   $lc_mhand_count = &chobak_cstruc::counto($arcosa->{'rehand'});
-  $lc_rand_elem = rand(90 + ( $lc_mhand_count * 3 ) );
+  $lc_rand_elem = rand(&me::valus::look('min-longterm-qfac') + ( $lc_mhand_count * 3 ) );
   $lc_ok_reload = ( $lc_rand_elem < $lc_mdeck_count );
   if ( $lc_ok_reload ) { $lc_ok_reload = ( $lc_mdeck_count > 0.5 ); }
   

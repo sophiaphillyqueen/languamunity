@@ -5,6 +5,7 @@ use chobak_jsonf;
 use chobak_json;
 use chobak_routines;
 use me::longterm;
+use me::valus;
 use File::Basename;
 use Cwd qw(realpath);
 
@@ -185,7 +186,7 @@ sub time_to_shrink {
     $lc2_a = $shrink_not_too_much_again;
     $lc2_b = int($lc2_a + 1.2);
     $lc2_c = int($lc2_a - 0.8);
-    $lc2_z = &chobak_routines::bestof_num(4,[$lc2_a,$lc2_b,$lc2_c,$lc_osiz,60,100]);
+    $lc2_z = &chobak_routines::bestof_num(4,[$lc2_a,$lc2_b,$lc2_c,$lc_osiz,60,&me::valus::look('max-deck-preshort')]);
     
     $shrink_not_too_much_again = $lc2_z;
     #$shrink_not_too_much_again = $lc_osiz;
