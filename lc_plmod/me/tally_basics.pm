@@ -3,6 +3,7 @@ use chobak_cstruc;
 use strict;
 
 my $opto_review_var;
+my $spec_vari = {};
 
 sub complete_hand {
   my $lc_a;
@@ -67,6 +68,20 @@ sub opto_review_in {
 
 sub opto_review_out {
   return $opto_review_var;
+}
+
+sub cusv_set {
+  $spec_vari->{$_[0]} = $_[1];
+}
+
+sub cusv_incr {
+  my $lc_a;
+  $lc_a = int($spec_vari->{$_[0]} + 1.2);
+  $spec_vari->{$_[0]} = $lc_a;
+}
+
+sub cusv_get {
+  return $spec_vari->{$_[0]};
 }
 
 

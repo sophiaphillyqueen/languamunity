@@ -112,6 +112,7 @@ sub artifice {
     
     system("clear");
     system("echo","WRONG:\n");
+    &me::tally_basics::cusv_incr('oops');
     system("echo",$lc_promptx . "\n");
     &shouldbe($lc_qus->{'a'});
     system("echo","NOT: " . $lc_answr . ' :');

@@ -2,6 +2,7 @@ use strict;
 use me::longterm;
 use me::core_quiz_cmd;
 use me::set_timer;
+use me::tally_basics;
 use argola;
 
 my $arcosa;
@@ -10,8 +11,13 @@ my $qsend;
 my $qsadv;
 my $qfile_set = 0;
 my $qfile_val;
+my $numof_oops;
+my $numof_rqst;
 
-me::set_timer::these_opts();
+&me::set_timer::these_opts();
+
+&me::tally_basics::cusv_set('oops',0);
+&me::tally_basics::cusv_set('rqst',0);
 
 sub opto__quizfile__do {
   $qfile_val = &argola::getrg();
@@ -57,12 +63,17 @@ $qsend = &findstat();
 
 &me::longterm::save($arcosa);
 
+$numof_oops = &me::tally_basics::cusv_get('oops');
+$numof_rqst = &me::tally_basics::cusv_get('rqst');
+
 $qsadv = int(($qsstart - $qsend) + 0.2);
 if ( $qsend > $qsstart ) { $qsadv = int($qsadv - 1.2); }
 
-system("echo",("  START QUIZ-SIZE: " . $qsstart));
-system("echo",("    END QUIZ-SIZE: " . $qsend));
-system("echo",("NET CARDS CLEARED: " . $qsadv));
+system("echo",("   START QUIZ-SIZE: " . $qsstart));
+system("echo",("     END QUIZ-SIZE: " . $qsend));
+system("echo",("     Wrong Answers: " . $numof_oops));
+system("echo",("Rehashes Requested: " . $numof_rqst));
+system("echo",(" NET CARDS CLEARED: " . $qsadv));
 
 
 

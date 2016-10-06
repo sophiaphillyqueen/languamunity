@@ -62,6 +62,7 @@ sub demand_extra_review {
   $lc_set = &me::tally_basics::opto_review_out();
   while ( $lc_count > 0.5 )
   {
+    &me::tally_basics::cusv_incr('rqst');
     $lc_all = $lc_set->{'rehand'};
     if ( ref($lc_all) ne 'ARRAY' ) { $lc_all = []; }
     foreach $lc_item (@$lc_all) { if ( ref($lc_item) eq 'HASH' ) { &chobak_cstruc::ry_push($arcosa->{'rehand'},$lc_item); } }
