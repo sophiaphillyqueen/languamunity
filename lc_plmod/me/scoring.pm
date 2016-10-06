@@ -4,7 +4,7 @@ use strict;
 # A string to identify the mode-format - so as
 # to not cause an effectively-infinite delay or
 # other major malfunction should things change.
-my $modeformat = "2016-0922-b";
+my $modeformat = "2016-1016-a";
 
 
 sub increment {
@@ -19,7 +19,7 @@ sub major_timestamp {
   my $lc_now;
   
   $lc_now = `date +%s`; chomp($lc_now);
-  $lc_now = int($lc_now / ( 60 * 60 * 12));
+  $lc_now = int($lc_now / ( 60 * 60 * 26));
   
   return $lc_now;
 }
