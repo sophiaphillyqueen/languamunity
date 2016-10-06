@@ -38,7 +38,7 @@ sub random_of_alt {
     $lc2_a = [$lc_chosen];
     $lc_chosen = $lc2_a;
   }
-  return &hashfrom($lc_chosen);
+  return &hashfrom($lc_chosen,$_[1]);
 }
 
 sub hashfrom {
@@ -52,7 +52,7 @@ sub hashfrom {
   
   if ( ref($lc_ref) ne 'ARRAY' )  { return @lc_ret; }
   if ( $lc_ref->[0] eq 'cm' ) { return @lc_ret; }
-  if ( $lc_ref->[0] eq 'alt' ) { return &random_of_alt($lc_ref); }
+  if ( $lc_ref->[0] eq 'alt' ) { return &random_of_alt($lc_ref,$_[1]); }
   $lc_reps = 1;
   if ( $lc_ref->[0] eq 'rep' )
   {
