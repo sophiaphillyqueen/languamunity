@@ -16,6 +16,31 @@ sub unset_info {
   $mdul_info_on = 0;
 }
 
+sub random_of_alt {
+  my $lc_ref;
+  my @lc_list;
+  my $lc_rando;
+  my $lc_itmo;
+  my $lc_chosen;
+  
+  $lc_ref = $_[0];
+  @lc_list = @$lc_ref;
+  $lc_ref = @lc_list;
+  if ( $lc_ref < 1.5 ) { return @lc_list; }
+  shift(@lc_list);
+  $lc_ref = @lc_list;
+  $lc_rando = int(rand($lc_ref * 20));
+  $lc_itmo = ( $lc_rando % $lc_ref );
+  $lc_chosen = $lc_list[$lc_itmo];
+  if ( ref($lc_chosen) ne 'ARRAY' )
+  {
+    my $lc2_a;
+    $lc2_a = [$lc_chosen];
+    $lc_chosen = $lc2_a;
+  }
+  return &hashfrom($lc_chosen);
+}
+
 sub hashfrom {
   my $lc_ref;
   my @lc_ret;
@@ -27,6 +52,7 @@ sub hashfrom {
   
   if ( ref($lc_ref) ne 'ARRAY' )  { return @lc_ret; }
   if ( $lc_ref->[0] eq 'cm' ) { return @lc_ret; }
+  if ( $lc_ref->[0] eq 'alt' ) { return &random_of_alt($lc_ref); }
   $lc_reps = 1;
   if ( $lc_ref->[0] eq 'rep' )
   {

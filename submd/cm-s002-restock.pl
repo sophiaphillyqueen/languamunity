@@ -137,6 +137,17 @@ sub howmany {
   return $lc_rt;
 }
 
+# The following function is a filter that allows the new representation of
+# a file (a hash that specifies file-location and symbolic file-id) while
+# also supporting backwards compatibility with the old form that treats
+# it as just a scalar.
+sub extrac_f_loc {
+  my $lc_rg;
+  $lc_rg = $_[0];
+  if ( ref($lc_rg) eq 'HASH' ) { return $lc_rg->{'f'}; }
+  return $lc_rg;
+}
+
 while ( ( &howmany() < $max_questions ) && ( $countor < $max_questions ) )
 {
   my $lc_lcn_tag;
@@ -214,7 +225,7 @@ sub agri_one_lesson {
   
   foreach $lc_file_item (@$lc_file_array)
   {
-    $lc_file_location = &relativo($lc_file_item,$cntrd->{'indexfile'});
+    $lc_file_location = &relativo(&extrac_f_loc($lc_file_item),$cntrd->{'indexfile'});
     system("languamunity",'agri','-ft',$scratfile,'-f',$lc_file_location);
   }
 }
