@@ -27,6 +27,8 @@ else { $arcosa = &me::longterm::load(); }
 $qsstart = &findstat();
 sub findstat {
   my $lc_a;
+  my $lc_odck;
+  my $lc_odcv;
   $lc_a = 0;
   $lc_a = int( &chobak_cstruc::counto($arcosa->{'hand'}) + $lc_a + 0.2);
   $lc_a = int( &chobak_cstruc::counto($arcosa->{'deck'}) + $lc_a + 0.2);
@@ -35,6 +37,11 @@ sub findstat {
   $lc_a = int( &chobak_cstruc::counto($arcosa->{'hnd01'}) + $lc_a + 0.2);
   $lc_a = int( &chobak_cstruc::counto($arcosa->{'hnd02'}) + $lc_a + 0.2);
   $lc_a = int( &chobak_cstruc::counto($arcosa->{'hnd03'}) + $lc_a + 0.2);
+  $lc_odck = $arcosa->{'mtdeck'};
+  foreach $lc_odcv (@$lc_odck)
+  {
+    $lc_a = int( &chobak_cstruc::counto($lc_odcv) + $lc_a + 0.2);
+  }
   return $lc_a;
 }
 
