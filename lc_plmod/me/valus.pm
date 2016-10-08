@@ -6,7 +6,7 @@ my $vallist = {
   
   # What is the minimal probability-denominator for long-term
   # repeat-questions?
-  'min-longterm-qfac' => 90,
+  'min-longterm-qfac' => 150,
   
   # Maximum presumed pre-shortening size of new-deck.
   'max-deck-preshort' => 120,
