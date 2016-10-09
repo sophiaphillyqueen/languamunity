@@ -3,6 +3,7 @@ use me::longterm;
 use me::core_quiz_cmd;
 use me::set_timer;
 use me::tally_basics;
+use chobak_cstruc;
 use argola;
 
 my $arcosa;
@@ -13,6 +14,7 @@ my $qfile_set = 0;
 my $qfile_val;
 my $numof_oops;
 my $numof_rqst;
+my $stat_in_round;
 
 &me::set_timer::these_opts();
 
@@ -69,6 +71,12 @@ $numof_rqst = &me::tally_basics::cusv_get('rqst');
 $qsadv = int(($qsstart - $qsend) + 0.2);
 if ( $qsend > $qsstart ) { $qsadv = int($qsadv - 1.2); }
 
+# Generate the report-string for the within-the-round status
+$stat_in_round = &chobak_cstruc::counto($arcosa->{'rehand'});
+$stat_in_round .= ':' . &chobak_cstruc::counto($arcosa->{'redeck'});
+$stat_in_round .= ' - ' . &chobak_cstruc::counto($arcosa->{'hand'});
+
+system("echo",("   Status In Round: " . $stat_in_round));
 system("echo",("   START QUIZ-SIZE: " . $qsstart));
 system("echo",("     END QUIZ-SIZE: " . $qsend));
 system("echo",("     Wrong Answers: " . $numof_oops));
