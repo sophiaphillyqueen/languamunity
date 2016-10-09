@@ -66,7 +66,7 @@ sub content_in {
   $lc_cont_a = &chobak_json::readf($_[0]);
   @lc_cont_b = &me::extrac::hashfrom($lc_cont_a,
     {
-      'typ' => ['smtx','subst'],
+      'typ' => ['smtx','subst','exrc'],
     }
   );
   @$itemas = (@$itemas,@lc_cont_b);

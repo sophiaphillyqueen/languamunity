@@ -4,6 +4,7 @@ use chobak_io;
 use me::longterm;
 use me::ask_smtx;
 use me::ask_subst;
+use me::ask_exrc;
 use me::tally_basics;
 use me::valus;
 
@@ -271,6 +272,9 @@ sub make_a_question {
     'main' => $arcosa,
   }); }
   if ( $lc_qus->{'typ'} eq 'subst' ) { return &me::ask_subst::prime($lc_qus,{
+    'main' => $arcosa,
+  }); }
+  if ( $lc_qus->{'typ'} eq 'exrc' ) { return &me::ask_exrc::prime($lc_qus,{
     'main' => $arcosa,
   }); }
   

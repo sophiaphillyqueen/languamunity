@@ -16,15 +16,17 @@ my $lessongoal;
 my $lessonrec;
 my $quizfile;
 my $iface;
+my $arg_is_01;
 
 $cntrpram = {
   'rtyp' => 'h',
   'create' => 'no',
 };
 
-if ( ! ( &chobak_jsonf::byref(&argola::getrg(),$cntrobj,$cntrpram) ) )
+$arg_is_01 = &argola::getrg();
+if ( ! ( &chobak_jsonf::byref($arg_is_01,$cntrobj,$cntrpram) ) )
 {
-  die "\nFailed to open the file\n\n";
+  die("\nFailed to open the file: " . $arg_is_01 . ":\n\n");
 }
 $cntrd = $cntrobj->cont();
 $index = &chobak_json::readf($cntrd->{'indexfile'});

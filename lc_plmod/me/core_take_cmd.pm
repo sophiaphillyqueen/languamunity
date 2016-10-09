@@ -24,7 +24,7 @@ sub one_round {
     my @lc2_noma;
     my $lc2_name;
     @$deckref = (@$deckref,&me::extrac::hashfrom($lc_eachfcon,{
-      'typ' => ['smtx','subst'],
+      'typ' => ['smtx','subst','exrc'],
     }));
     
     @lc2_noma = &me::extrac::hashfrom($lc_eachfcon,{
