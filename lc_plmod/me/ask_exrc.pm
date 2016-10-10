@@ -3,14 +3,23 @@ use strict;
 use chobak_json;
 use me::tally_basics;
 use me::otherans;
+use chobak_cstruc;
 
 sub prime {
   my $lc_useit;
   
   &chobak_json::clone($_[0],$lc_useit);
+  
+  if ( ref($lc_useit->{'pre'}) eq 'ARRAY' )
+  {
+    my $lc2_a;
+    $lc2_a = &chobak_cstruc::rand_item_of_array($lc_useit->{'pre'});
+    $lc_useit->{'pre'} = $lc2_a;
+  }
+  
   $_[1]->{'pristine'} = $_[0];
   $_[1]->{'err_deck'} = [$_[0]];
-  $_[1]->{'err_hand'} = [$_[0]];
+  $_[1]->{'err_hand'} = [$lc_useit];
   return &artifice($lc_useit,$_[1]);
 }
 
