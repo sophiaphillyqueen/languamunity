@@ -136,7 +136,7 @@ sub show_by_format {
     {
       my $lc3_lin;
       $lc3_lin = shift(@lc_left);
-      system("echo",("\n" . $lc3_lin));
+      system("echo",("\n        " . $lc3_lin));
       $lc_cnt = @lc_left;
     }
     return;
