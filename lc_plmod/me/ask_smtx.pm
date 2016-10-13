@@ -6,6 +6,7 @@ use chobak_cstruc;
 use me::longterm;
 use me::otherans;
 use me::tally_basics;
+use me::voca;
 
 sub prime {
   my $lc_useit;
@@ -123,6 +124,7 @@ sub artifice {
   }
   
   system("echo","\nCORRECT:");
+  &me::voca::sayit($lc_qus->{'a'},$lc_qus->{'voca'},{});
   if ( $lc_altern ne '' )
   {
     #system("echo","-n","\nAlso acceptable woud be:\n" . $lc_altern);

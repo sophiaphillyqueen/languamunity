@@ -7,6 +7,7 @@ use me::ask_subst;
 use me::ask_exrc;
 use me::tally_basics;
 use me::valus;
+use me::voca;
 
 
 my $arcosa;
@@ -33,6 +34,7 @@ sub set_arcosa_var {
     $lc2_hs = int($arcosa->{'stng'}->{'handsize'} + 0.4);
     if ( $lc2_hs > 0.5 ) { $handsize = $lc2_hs; }
   }
+  &me::voca::set_arcosa_var($arcosa);
 }
 
 
@@ -86,6 +88,9 @@ sub anotround {
     $lc_aloop = 0;
     if ( $lastcomd eq 'h' ) { $lc_aloop = 10; &get_me_help(); }
     if ( $lastcomd eq 'rvu' ) { $lc_aloop = 10; &demand_extra_review(); }
+    if ( $lastcomd eq 'vc-on' ) { $lc_aloop = 10; $arcosa->{'stng'}->{'voca'} = 'on'; }
+    if ( $lastcomd eq 'vc-off' ) { $lc_aloop = 10; $arcosa->{'stng'}->{'voca'} = 'off'; }
+    if ( $lastcomd eq 'vc-fg' ) { $lc_aloop = 10; $arcosa->{'stng'}->{'voca'} = 'fg'; }
     
     if ( $lc_aloop > 5 ) { &enter_the_prompt(); }
   }
@@ -108,6 +113,9 @@ sub get_me_help {
   $lc_dt .= "save -- Save status - and continue the quiz:\n";
   $lc_dt .= "x - - - Save status and exit the program:\n";
   $lc_dt .= "rvu - - Request additional volutnary review:\n";
+  $lc_dt .= "vc-on - Turn audio on:\n";
+  $lc_dt .= "vc-off - Turn audio off:\n";
+  $lc_dt .= "vc-fg - Turn audio on - foreground mode:\n";
   system("echo","-n",$lc_dt);
 }
 
