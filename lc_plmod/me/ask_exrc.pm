@@ -4,6 +4,7 @@ use chobak_json;
 use me::tally_basics;
 use me::otherans;
 use chobak_cstruc;
+use me::voca;
 
 sub prime {
   my $lc_useit;
@@ -66,6 +67,7 @@ sub do_ask_first {
   # Otherwise, it uses Rg2 as a place to save data-info.
   my $lc_dat;
   my $lc_q;
+  my $lc_ret;
   
   
   $lc_q = $_[0];
@@ -78,7 +80,9 @@ sub do_ask_first {
   system("echo","-n",("\n" . '  > ' . $lc_q->{'pre'}));
   $lc_dat->{'answr'} = &chobak_jsio::inln();
   
-  return($lc_dat->{'answr'} eq $lc_q->{'a'});
+  $lc_ret = ($lc_dat->{'answr'} eq $lc_q->{'a'});
+  if ( $lc_ret ) { &me::voca::sayit(($lc_q->{'pre'} . $lc_q->{'a'}),$lc_q->{'voca'},{}); }
+  return $lc_ret;
 }
 
 sub do_ask_again {
@@ -89,6 +93,7 @@ sub do_ask_again {
   my $lc_dat;
   my $lc_odat;
   my $lc_q;
+  my $lc_ret;
   
   
   $lc_q = $_[0];
@@ -107,7 +112,9 @@ sub do_ask_again {
   system("echo","-n",("\n" . '     > ' . $lc_q->{'pre'}));
   $lc_dat->{'answr'} = &chobak_jsio::inln();
   
-  return($lc_dat->{'answr'} eq $lc_q->{'a'});
+  $lc_ret = ($lc_dat->{'answr'} eq $lc_q->{'a'});
+  if ( $lc_ret ) { &me::voca::sayit(($lc_q->{'pre'} . $lc_q->{'a'}),$lc_q->{'voca'},{}); }
+  return $lc_ret;
 }
 
 
