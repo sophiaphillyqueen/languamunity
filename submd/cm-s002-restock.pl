@@ -164,7 +164,7 @@ while ( ( &howmany() < $max_questions ) && ( $countor < $max_questions ) )
 
 sub reset_shrinkage_global_vars {
   $shrink_not_too_much_again = 0;
-  $shrink_pro_max = 8;
+  $shrink_pro_max = 2;
   $shrink_pro_count = 0;
 }
 sub time_to_shrink {
@@ -205,6 +205,14 @@ sub time_to_shrink {
   system("echo",(": " . $shrink_new_lesson_code . ' : ' . $lc_osiz . ' -> ' . $shrink_not_too_much_again . ' :'));
   
   $lc_nsiz = int(($shrink_not_too_much_again * .9) + 2.2);
+  
+  {
+    # Don't let the post-shrink ever be more than a certain size
+    my $lc2_a;
+    $lc2_a = &me::valus::look('max-deck-postshort');
+    if ( $lc_nsiz > $lc2_a ) { $lc_nsiz = $lc2_a; }
+    #system("echo",("Shrinking to size " . $lc_nsiz . ":"));
+  }
   system('languamunity','agri','-ft',$scratfile,'-lm',$lc_nsiz);
 }
 sub agri_one_lesson {

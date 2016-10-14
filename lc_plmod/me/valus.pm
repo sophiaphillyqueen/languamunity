@@ -10,6 +10,9 @@ my $vallist = {
   
   # Maximum presumed pre-shortening size of new-deck.
   'max-deck-preshort' => 120,
+  
+  # Maximum post-shortening size of new-deck
+  'max-deck-postshort' => 100,
 };
 
 sub look {

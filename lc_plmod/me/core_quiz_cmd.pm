@@ -91,6 +91,7 @@ sub anotround {
     if ( $lastcomd eq 'vc-on' ) { $lc_aloop = 10; $arcosa->{'stng'}->{'voca'} = 'on'; }
     if ( $lastcomd eq 'vc-off' ) { $lc_aloop = 10; $arcosa->{'stng'}->{'voca'} = 'off'; }
     if ( $lastcomd eq 'vc-fg' ) { $lc_aloop = 10; $arcosa->{'stng'}->{'voca'} = 'fg'; }
+    if ( $lastcomd eq 'vc' ) { $lc_aloop = 10; &me::voca::aprosay(); }
     
     if ( $lc_aloop > 5 ) { &enter_the_prompt(); }
   }
@@ -109,13 +110,14 @@ sub anotround {
 sub get_me_help {
   my $lc_dt;
   $lc_dt = "\n";
-  $lc_dt .= "h - - - Display this help message:\n";
-  $lc_dt .= "save -- Save status - and continue the quiz:\n";
-  $lc_dt .= "x - - - Save status and exit the program:\n";
-  $lc_dt .= "rvu - - Request additional volutnary review:\n";
-  $lc_dt .= "vc-on - Turn audio on:\n";
+  $lc_dt .= "h - - -- Display this help message:\n";
+  $lc_dt .= "save - - Save status - and continue the quiz:\n";
+  $lc_dt .= "x - - -- Save status and exit the program:\n";
+  $lc_dt .= "rvu - -- Request additional volutnary review:\n";
+  $lc_dt .= "vc-on -- Turn audio on:\n";
   $lc_dt .= "vc-off - Turn audio off:\n";
-  $lc_dt .= "vc-fg - Turn audio on - foreground mode:\n";
+  $lc_dt .= "vc-fg -- Turn audio on - foreground mode:\n";
+  $lc_dt .= "vc - - - Sound off the most recent flash-card (if the card supports it):\n";
   system("echo","-n",$lc_dt);
 }
 

@@ -4,9 +4,31 @@ use strict;
 
 my $arcosa;
 
+my $was_string;
+my $was_spspec;
+my $was_params;
+
 
 sub set_arcosa_var {
   $arcosa = $_[0];
+}
+
+sub aprosay {
+  my $lc_cm;
+  if ( ref($was_spspec) ne 'HASH' )
+  {
+    system("echo","\nSORRY: This flash-card isn't yet configured with a voice:\n");
+    return;
+  }
+  
+  if ( $was_spspec->{'typ'} eq 'synth' )
+  {
+    $lc_cm = 'languamunity';
+    &wraprg::lst($lc_cm, ('say--' . $was_spspec->{'lng'}));
+    &wraprg::lst($lc_cm, $was_spspec->{'gnd'}, $was_string);
+    
+    system($lc_cm);
+  }
 }
 
 sub sayit {
@@ -15,6 +37,10 @@ sub sayit {
   my $lc_cm;
   my $lc_ok;
   my $lc_bg;
+  
+  $was_string = $_[0];
+  $was_spspec = $_[1];
+  $was_params = $_[2];
   
   if ( !(defined($arcosa->{'stng'}->{'voca'})) ) { return; }
   $lc_ok = 0;
