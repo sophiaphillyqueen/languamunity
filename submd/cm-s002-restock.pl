@@ -206,7 +206,7 @@ sub time_to_shrink {
   system("echo",(": " . $shrink_new_lesson_code . ' : ' . $lc_osiz . ' -> ' . $shrink_not_too_much_again . ' :'));
   
   $lc_now = `date +%s`; chomp($lc_now);
-  $lc_now = ( ( $lc_now - 1476492928 ) / ( 60 * 60 * 22 ) );
+  $lc_now = ( ( $lc_now - 1476492928 ) / ( 60 * 60 * 26 ) );
   $lc_nsiz = int(($shrink_not_too_much_again * .9) + 2 + $lc_now);
   
   {
@@ -214,7 +214,7 @@ sub time_to_shrink {
     my $lc2_a;
     $lc2_a = &me::valus::look('max-deck-postshort');
     if ( $lc_nsiz > $lc2_a ) { $lc_nsiz = $lc2_a; }
-    #system("echo",("Shrinking to size " . $lc_nsiz . ":"));
+    system("echo",("Shrinking to size " . $lc_nsiz . ":"));
   }
   system('languamunity','agri','-ft',$scratfile,'-lm',$lc_nsiz);
 }
