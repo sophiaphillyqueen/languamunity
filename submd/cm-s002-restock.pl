@@ -214,7 +214,7 @@ sub time_to_shrink {
     my $lc2_a;
     $lc2_a = &me::valus::look('max-deck-postshort');
     if ( $lc_nsiz > $lc2_a ) { $lc_nsiz = $lc2_a; }
-    system("echo",("Shrinking to size " . $lc_nsiz . ":"));
+    system("echo",("Shrinking to size " . $lc_nsiz . ' from ' . $lc_osiz . ":"));
   }
   system('languamunity','agri','-ft',$scratfile,'-lm',$lc_nsiz);
 }
