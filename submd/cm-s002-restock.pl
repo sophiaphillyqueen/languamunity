@@ -171,6 +171,7 @@ sub time_to_shrink {
   my $lc_cm;
   my $lc_osiz;
   my $lc_nsiz;
+  my $lc_now;
   my $lc_shrink_steps;
   
   $lc_shrink_steps = $shrink_pro_max;
@@ -204,7 +205,9 @@ sub time_to_shrink {
   }
   system("echo",(": " . $shrink_new_lesson_code . ' : ' . $lc_osiz . ' -> ' . $shrink_not_too_much_again . ' :'));
   
-  $lc_nsiz = int(($shrink_not_too_much_again * .9) + 2.2);
+  $lc_now = `date +%s`; chomp($lc_now);
+  $lc_now = ( ( $lc_now - 1476492928 ) / ( 60 * 60 * 22 ) );
+  $lc_nsiz = int(($shrink_not_too_much_again * .9) + 2 + $lc_now);
   
   {
     # Don't let the post-shrink ever be more than a certain size
