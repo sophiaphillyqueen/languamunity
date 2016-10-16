@@ -206,7 +206,7 @@ sub time_to_shrink {
   system("echo",(": " . $shrink_new_lesson_code . ' : ' . $lc_osiz . ' -> ' . $shrink_not_too_much_again . ' :'));
   
   $lc_now = `date +%s`; chomp($lc_now);
-  $lc_now = ( ( $lc_now - 1476492928 ) / ( 60 * 60 * 26 ) );
+  $lc_now = ( ( $lc_now - 1476492928 ) / ( 60 * 60 * 40 ) );
   $lc_nsiz = int(($shrink_not_too_much_again * .9) + 2 + $lc_now);
   
   {
