@@ -7,6 +7,8 @@ use me::longterm;
 use me::otherans;
 use me::tally_basics;
 use me::voca;
+use me::distress;
+use chobak_string;
 
 sub prime {
   my $lc_useit;
@@ -25,6 +27,7 @@ sub artifice {
   my $lc_maybe;
   my $lc_altern;
   my $lc_answr;
+  my $lc_retry; # A place to enter a retry-answer that lets interrupt commands see the old
   my @lc_alter_a; # List of prompt-lines in response to alternate answers
   my $lc_anoncia;
   
@@ -76,11 +79,15 @@ sub artifice {
   
   while ( $lc_phase < 1.5 )
   {
-    system("clear");
-    system("echo",$lc_anoncia . ":\n");
-    system("echo","-n",$lc_promptx . "\n\n:> ");
-    
-    $lc_answr = &chobak_jsio::inln();
+    $lc_answr = '';
+    while ( &me::distress::trpcmd($lc_answr) )
+    {
+      system("clear");
+      system("echo",$lc_anoncia . ":\n");
+      system("echo","-n",$lc_promptx . "\n\n:> ");
+      
+      #$lc_answr = &chobak_jsio::inln();
+    }
     if ( &correct($lc_answr,$lc_qus->{'a'},$lc_altern) )
     {
       $lc_phase = 3;
@@ -111,15 +118,31 @@ sub artifice {
     });
     
     
-    system("clear");
-    system("echo","WRONG:\n");
-    &me::tally_basics::cusv_incr('oops');
-    system("echo",$lc_promptx . "\n");
-    &shouldbe($lc_qus->{'a'});
-    system("echo","NOT: " . $lc_answr . ' :');
-    system("echo","-n","\n:> ");
-    
-    $lc_answr = &chobak_jsio::inln();
+    $lc_retry = '';
+    while ( &me::distress::trpcmd($lc_retry) )
+    {
+      my $lc3_where;
+      
+      $lc3_where = ( $lc_retry eq '**diff' );
+      
+      system("clear");
+      system("echo","WRONG:\n");
+      &me::tally_basics::cusv_incr('oops');
+      system("echo",$lc_promptx . "\n");
+      if ( !($lc3_where) )
+      {
+        &shouldbe($lc_qus->{'a'});
+        system("echo","NOT: " . $lc_answr . ' :');
+      }
+      if ( $lc3_where )
+      {
+        &diff_shouldbe($lc_qus->{'a'},$lc_answr);
+      }
+      system("echo","-n","\n:> ");
+      
+      #$lc_answr = &chobak_jsio::inln();
+    }
+    $lc_answr = $lc_retry;
     if ( &correct($lc_answr,$lc_qus->{'a'},$lc_altern) ) { $lc_phase = 3; }
   }
   
@@ -206,6 +229,30 @@ sub shouldbe {
     foreach $lc_each (@$lc_ref)
     {
       system("echo",'   : ' . $lc_each . ' :');
+    }
+  }
+}
+
+sub diff_shouldbe {
+  my $lc_ref;
+  my $lc_each;
+  my $lc_diff;
+  if ( ref($_[0]) eq '' )
+  {
+    $lc_diff = &chobak_string::differ($_[0],$_[1]);
+    system("echo","The correct answer:\n   : " . $lc_diff->[2] . ' : ' . $lc_diff->[0] . ' : ' . $lc_diff->[3] . ' :');
+    system("echo","NOT: " . $lc_diff->[2] . ' : ' . $lc_diff->[1] . ' : ' . $lc_diff->[3] . ' :');
+    return;
+  }
+  if ( ref($_[0]) eq 'ARRAY' )
+  {
+    system("echo","Possible answers:");
+    $lc_ref = $_[0];
+    foreach $lc_each (@$lc_ref)
+    {
+      $lc_diff = &chobak_string::differ($lc_each,$_[1]);
+      system("echo","   : " . $lc_diff->[2] . ' : ' . $lc_diff->[0] . ' : ' . $lc_diff->[3] . ' :');
+      system("echo","NOT: " . $lc_diff->[2] . ' : ' . $lc_diff->[1] . ' : ' . $lc_diff->[3] . ' :');
     }
   }
 }
