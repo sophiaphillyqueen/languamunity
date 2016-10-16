@@ -50,6 +50,7 @@ sub artifice {
   $lc_success = ( 1 > 2 );
   while ( !($lc_success) )
   {
+    &me::tally_basics::cusv_incr('oops');
     &chobak_cstruc::ry_m_push($_[1]->{'main'}->{'rehand'},$_[1]->{'err_hand'});
     &chobak_cstruc::ry_m_push($_[1]->{'main'}->{'redeck'},$_[1]->{'err_deck'});
     

@@ -118,6 +118,7 @@ sub artifice {
     });
     
     
+    &me::tally_basics::cusv_incr('oops');
     $lc_retry = '';
     while ( &me::distress::trpcmd($lc_retry) )
     {
@@ -127,7 +128,6 @@ sub artifice {
       
       system("clear");
       system("echo","WRONG:\n");
-      &me::tally_basics::cusv_incr('oops');
       system("echo",$lc_promptx . "\n");
       if ( !($lc3_where) )
       {
