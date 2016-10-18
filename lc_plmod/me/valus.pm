@@ -13,6 +13,10 @@ my $vallist = {
   
   # Maximum post-shortening size of new-deck
   'max-deck-postshort' => 100,
+  
+  # How many rounds maximum can reintroduction of long-term
+  # rehashes be halted?
+  'max-dam-height' => 240,
 };
 
 sub look {

@@ -80,6 +80,13 @@ sub cusv_incr {
   $spec_vari->{$_[0]} = $lc_a;
 }
 
+sub cusv_decr {
+  my $lc_a;
+  $lc_a = int($spec_vari->{$_[0]} - 0.8);
+  if ( $lc_a < 0 ) { $lc_a = 0; }
+  $spec_vari->{$_[0]} = $lc_a;
+}
+
 sub cusv_get {
   return $spec_vari->{$_[0]};
 }

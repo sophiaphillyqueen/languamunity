@@ -20,6 +20,7 @@ my $stat_in_round;
 
 &me::tally_basics::cusv_set('oops',0);
 &me::tally_basics::cusv_set('rqst',0);
+&me::tally_basics::cusv_set('dam',2);
 
 sub opto__quizfile__do {
   $qfile_val = &argola::getrg();

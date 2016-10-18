@@ -53,12 +53,37 @@ sub may_resume {
   return $lc_sfar;
 }
 
+sub inspect_the_dam {
+  system("echo",("\n\nCurrent height of the dam: " . &me::tally_basics::cusv_get('dam') . ":\n"));
+}
+
+sub raise_the_dam {
+  my $lc_max;
+  my $lc_entr;
+  my $lc_bnum;
+  
+  $lc_max = &me::valus::look('max-dam-height');
+  
+  system("echo","-n",("\n\n"
+    . "Halt the re-introduction of long-term rehashes for a\n"
+    . "specific number of rounds.\n\n"
+    . "How many rounds should that be? (0-" . $lc_max . ") "
+  ));
+  
+  $lc_entr = &chobak_io::inln();
+  $lc_bnum = int($lc_entr + 0.2);
+  if ( $lc_bnum < 0 ) { $lc_bnum = 0; }
+  if ( $lc_bnum > $lc_max ) { $lc_bnum = $lc_max; }
+  
+  &me::tally_basics::cusv_set('dam',$lc_bnum);
+  system("echo",("\nDam height set to: " . $lc_bnum . ":\n"));
+}
+
 sub demand_extra_review {
   my $lc_count;
   my $lc_set;
   my $lc_all;
   my $lc_item;
-  system("echo","-n","\n\nTHIS FEATURE MAY NOT BE EFFECTIVE AS IT IS IN-DEVELOPMENT");
   system("echo","-n","\n\nVoluntary equivalent of now many wrong answers? (1-10) ");
   $lc_count = &chobak_io::inln();
   if ( $lc_count > 10 ) { $lc_count = 10; }
@@ -88,6 +113,8 @@ sub anotround {
     $lc_aloop = 0;
     if ( $lastcomd eq 'h' ) { $lc_aloop = 10; &get_me_help(); }
     if ( $lastcomd eq 'rvu' ) { $lc_aloop = 10; &demand_extra_review(); }
+    if ( $lastcomd eq 'dam' ) { $lc_aloop = 10; &raise_the_dam(); }
+    if ( $lastcomd eq 'ldam' ) { $lc_aloop = 10; &inspect_the_dam(); }
     if ( $lastcomd eq 'vc-on' ) { $lc_aloop = 10; $arcosa->{'stng'}->{'voca'} = 'on'; }
     if ( $lastcomd eq 'vc-off' ) { $lc_aloop = 10; $arcosa->{'stng'}->{'voca'} = 'off'; }
     if ( $lastcomd eq 'vc-fg' ) { $lc_aloop = 10; $arcosa->{'stng'}->{'voca'} = 'fg'; }
@@ -211,20 +238,24 @@ sub megadeckthand {
   #
   &me::tally_basics::shift_unasked_in_arcos($arcosa);
   
-  # Now we decide if it is time to reload a question from the
-  # Missed Deck to the Missed Hand
-  $lc_mdeck_count = &chobak_cstruc::counto($arcosa->{'redeck'});
-  $lc_mhand_count = &chobak_cstruc::counto($arcosa->{'rehand'});
-  $lc_rand_elem = rand(&me::valus::look('min-longterm-qfac') + ( $lc_mhand_count * 3 ) );
-  $lc_ok_reload = ( $lc_rand_elem < $lc_mdeck_count );
-  if ( $lc_ok_reload ) { $lc_ok_reload = ( $lc_mdeck_count > 0.5 ); }
-  
-  # And we do the reload if applicable
-  if ( $lc_ok_reload )
+  if ( &me::tally_basics::cusv_get('dam') < 0.5 ) # Don't leak longterm if dam is up
   {
-    $lc_tmhold = &chobak_cstruc::ry_hat($arcosa->{'redeck'});
-    &chobak_cstruc::ry_push($arcosa->{'rehand'},$lc_tmhold);
+    # Now we decide if it is time to reload a question from the
+    # Missed Deck to the Missed Hand
+    $lc_mdeck_count = &chobak_cstruc::counto($arcosa->{'redeck'});
+    $lc_mhand_count = &chobak_cstruc::counto($arcosa->{'rehand'});
+    $lc_rand_elem = rand(&me::valus::look('min-longterm-qfac') + ( $lc_mhand_count * 3 ) );
+    $lc_ok_reload = ( $lc_rand_elem < $lc_mdeck_count );
+    if ( $lc_ok_reload ) { $lc_ok_reload = ( $lc_mdeck_count > 0.5 ); }
+    
+    # And we do the reload if applicable
+    if ( $lc_ok_reload )
+    {
+      $lc_tmhold = &chobak_cstruc::ry_hat($arcosa->{'redeck'});
+      &chobak_cstruc::ry_push($arcosa->{'rehand'},$lc_tmhold);
+    }
   }
+  &me::tally_basics::cusv_decr('dam'); # But also don't keep the dam up forever
 }
 
 sub old_megadeckthand {
