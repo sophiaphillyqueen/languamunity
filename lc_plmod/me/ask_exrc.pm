@@ -5,6 +5,7 @@ use me::tally_basics;
 use me::otherans;
 use chobak_cstruc;
 use me::voca;
+use me::distress;
 
 sub prime {
   my $lc_useit;
@@ -47,6 +48,15 @@ sub artifice {
   $lc_usinf = {};
   
   if ( &do_ask_first($_[0],$_[1],$lc_usinf) ) { &do_congrat(); return 10; };
+  
+  # Now we defer that which must be deferred:
+  if ( $lc_usinf->{'defer'} )
+  {
+    &chobak_cstruc::ry_m_push($_[1]->{'main'}->{'redeck'},$_[1]->{'err_deck'});
+    system("echo","\n\nDEFERRED (but not forgotten)\n\n");
+    return 10;
+  }
+  
   $lc_success = ( 1 > 2 );
   while ( !($lc_success) )
   {
@@ -69,17 +79,32 @@ sub do_ask_first {
   my $lc_dat;
   my $lc_q;
   my $lc_ret;
+  my $lc_entr;
   
   
   $lc_q = $_[0];
   $lc_dat = $_[2];
   
-  system("clear");
-  system("echo","EXERCISE");
-  &show_by_format($lc_q->{'inst'});
+  $lc_dat->{'defer'} = (1>2);
   
-  system("echo","-n",("\n" . '  > ' . $lc_q->{'pre'}));
-  $lc_dat->{'answr'} = &chobak_jsio::inln();
+  $lc_entr = '';
+  while ( &me::distress::trpcmd($lc_entr) ) {
+    
+    # For things that must be deferred ...
+    if ( $lc_entr eq '**lt' )
+    {
+      $lc_dat->{'defer'} = (2>1);
+      return(1>2);
+    }
+    
+    system("clear");
+    system("echo","EXERCISE");
+    &show_by_format($lc_q->{'inst'});
+    
+    system("echo","-n",("\n" . '  > ' . $lc_q->{'pre'}));
+  }
+  #$lc_dat->{'answr'} = &chobak_jsio::inln();
+  $lc_dat->{'answr'} = $lc_entr;
   
   $lc_ret = ($lc_dat->{'answr'} eq $lc_q->{'a'});
   if ( $lc_ret ) { &me::voca::sayit(($lc_q->{'pre'} . $lc_q->{'a'}),$lc_q->{'voca'},{}); }

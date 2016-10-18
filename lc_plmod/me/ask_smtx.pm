@@ -82,6 +82,20 @@ sub artifice {
     $lc_answr = '';
     while ( &me::distress::trpcmd($lc_answr) )
     {
+      # Sometimes - questions come up that I just NEED to tell them to take
+      # a number. Eventually, I will introduce code so that the following
+      # litany can be aware of whether it came from the unasked questions
+      # or from the rehashes -- but for now, I will just have send all
+      # such questions to the long-term rehash pile (even though eventually,
+      # that will only be done with questions that actually come from the
+      # rehash).
+      if ( $lc_answr eq '**lt' )
+      {
+        &chobak_cstruc::ry_m_push($_[1]->{'main'}->{'redeck'},$_[1]->{'err_deck'});
+        system("echo","\n\nDEFERRED (but not forgotten)\n\n");
+        return 10;
+      }
+      
       system("clear");
       system("echo",$lc_anoncia . ":\n");
       system("echo","-n",$lc_promptx . "\n\n:> ");
