@@ -6,9 +6,31 @@ use me::otherans;
 use chobak_cstruc;
 use me::voca;
 use me::distress;
+use me::ask_exrc_drill;
 
 sub prime {
   my $lc_useit;
+  my $lc_ok;
+  
+  # The 'drill' subform is diverted to the alternative:
+  if ( $_[0]->{'form'} eq 'drill' ) { return me::ask_exrc_drill::prime($_[0],$_[1]); }
+  
+  # Now to filter out the old questions by assuring that continuation is only with
+  # authorized forms:
+  $lc_ok = 0;
+  # - The 'focus' form is for those that were auto-generated upon request for focus:
+  # However - they are slated for automatic discard 36 hours after they are generated.
+  if ( $_[0]->{'form'} eq 'focus' )
+  {
+    my $lc2_now;
+    my $lc2_then;
+    $lc2_now = &chobaktime::nowo();
+    $lc2_then = $_[0]->{'mort'};
+    $lc_ok = 10;
+    if ( $lc2_then > ( $lc2_now + 300 ) ) { $lc_ok = 0; }
+    if ( $lc2_then < ( $lc2_now - ( 60 * 60 * 36 ) ) ) { $lc_ok = 0; }
+  }
+  if ( $lc_ok < 5 ) { return 10; }
   
   &chobak_json::clone($_[0],$lc_useit);
   
