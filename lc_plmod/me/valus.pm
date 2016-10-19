@@ -19,6 +19,9 @@ my $vallist = {
   'max-dam-height' => 240,
   # And how high by default?
   'dfl-dam-height' => 0,
+  
+  # How many hours do "mortal" flash-cards remain valid?
+  'mortality-hours' => 48,
 };
 
 sub look {

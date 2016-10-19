@@ -7,6 +7,7 @@ use chobak_cstruc;
 use me::voca;
 use me::distress;
 use me::ask_exrc_drill;
+use me::valus;
 
 sub prime {
   my $lc_useit;
@@ -28,9 +29,13 @@ sub prime {
     $lc2_then = $_[0]->{'mort'};
     $lc_ok = 10;
     if ( $lc2_then > ( $lc2_now + 300 ) ) { $lc_ok = 0; }
-    if ( $lc2_then < ( $lc2_now - ( 60 * 60 * 36 ) ) ) { $lc_ok = 0; }
+    if ( $lc2_then < ( $lc2_now - ( 60 * 60 * &me::valus::look('mortality-hours') ) ) ) { $lc_ok = 0; }
   }
-  if ( $lc_ok < 5 ) { return 10; }
+  if ( $lc_ok < 5 ) {
+    system("clear");
+    system("echo","\nEXPIRED AND/OR MAL-FORMED FLASH-CARD --- SKIPPED:\n");
+    return 10;
+  }
   
   &chobak_json::clone($_[0],$lc_useit);
   
