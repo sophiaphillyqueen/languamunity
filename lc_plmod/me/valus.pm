@@ -17,6 +17,8 @@ my $vallist = {
   # How many rounds maximum can reintroduction of long-term
   # rehashes be halted?
   'max-dam-height' => 240,
+  # And how high by default?
+  'dfl-dam-height' => 0,
 };
 
 sub look {

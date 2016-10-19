@@ -7,6 +7,7 @@ use argola;
 use chobak_jsonf;
 use me::navig_index;
 use me::scoring;
+use me::format_cntrol;
 
 my $cntrobj;
 my $cntrpram;
@@ -29,6 +30,7 @@ if ( ! ( &chobak_jsonf::byref($arg_is_01,$cntrobj,$cntrpram) ) )
   die("\nFailed to open the file: " . $arg_is_01 . ":\n\n");
 }
 $cntrd = $cntrobj->cont();
+&me::format_cntrol::struct_the_ref($cntrd);
 $index = &chobak_json::readf($cntrd->{'indexfile'});
 
 $lessongoal = &argola::getrg();

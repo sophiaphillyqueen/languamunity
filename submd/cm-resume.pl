@@ -5,6 +5,7 @@ use me::set_timer;
 use me::tally_basics;
 use chobak_cstruc;
 use argola;
+use me::valus;
 
 my $arcosa;
 my $qsstart;
@@ -20,7 +21,11 @@ my $stat_in_round;
 
 &me::tally_basics::cusv_set('oops',0);
 &me::tally_basics::cusv_set('rqst',0);
-&me::tally_basics::cusv_set('dam',2);
+&me::tally_basics::cusv_set('dam',&me::valus::look('dfl-dam-height'));
+
+sub opto__dam__do {
+  &me::tally_basics::cusv_set('dam',&argola::getrg());
+} &argola::setopt('-dam',\&opto__dam__do);
 
 sub opto__quizfile__do {
   $qfile_val = &argola::getrg();

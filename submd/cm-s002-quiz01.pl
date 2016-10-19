@@ -10,6 +10,9 @@ my $cntrobj;
 my $cntrd;
 my $quizfile;
 my $newrounds;
+my $dam_set = 0;
+my $dam_size;
+my @quizcm;
 
 $cntrpram = {
   'rtyp' => 'h',
@@ -26,6 +29,13 @@ if ( $quizfile eq '' )
 {
   die "\nFATAL ERROR: No quizfile assigned:\n\n";
 }
+
+sub opto__dam__do {
+  $dam_size = &argola::getrg();
+  $dam_set = 10;
+} &argola::setopt('-dam',\&opto__dam__do);
+
+&argola::runopts();
 
 
 system("languamunity","s002-restock",$cntrobj->reffile());
@@ -45,7 +55,9 @@ while ( $newrounds > 0.5 )
 $cntrobj->save();
 
 
-system("languamunity","resume","-quizfile",$quizfile,"-time",5,0);
+@quizcm = ("languamunity","resume","-quizfile",$quizfile,"-time",5,0);
+if ( $dam_set > 5 ) { @quizcm = (@quizcm,"-dam",$dam_size); }
+exec(@quizcm);
 
 
 
