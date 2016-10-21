@@ -10,11 +10,11 @@ sub trpcmd {
   my $lc_bgin;
   
   # Of course, the first round (as identified by the empty string)
-  # we do nothing but return -true- with the '**' value as the
+  # we do nothing but return -true- with the '*' value as the
   # temporary value:
   if ( $_[0] eq '' )
   {
-    $_[0] = 'xx';
+    $_[0] = '*';
     return(2 > 1 );
   }
   
