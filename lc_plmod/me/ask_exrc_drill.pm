@@ -70,6 +70,16 @@ sub prime {
   }
   &do_after_line();
   
+  # And last but not least --- let us add rehashes appropriate to the
+  # number of errors on the most-missed line:
+  while ( $biggest_f > 0.5 )
+  {
+    &me::tally_basics::cusv_incr('oops');
+    &chobak_cstruc::ry_m_push($deckref->{'main'}->{'rehand'},[$_[0]]);
+    &chobak_cstruc::ry_m_push($deckref->{'main'}->{'redeck'},[$_[0]]);
+    $biggest_f = int($biggest_f - 0.8);
+  }
+  
   return 10;
 }
 
@@ -174,13 +184,17 @@ sub rhash_last {
   system("echo","-n","\n\nHow many rehash-pairs of last COMPLETED line? [0-30] ");
   $lc_howmany = &chobak_jsio::inln();
   $lc_done = 0;
+  $lc_howmany = int($lc_howmany + 0.49);
+  if ( $lc_howmany > 30 ) { $lc_howmany = 30; }
   while ( $lc_howmany > 0.5 )
   {
+    &me::tally_basics::cusv_incr('rqst');
     &chobak_cstruc::ry_m_push($deckref->{'main'}->{'rehand'},[$lc_newc]);
     &chobak_cstruc::ry_m_push($deckref->{'main'}->{'redeck'},[$lc_newc]);
     $lc_howmany = int($lc_howmany - 0.8);
     $lc_done = int($lc_done + 1.2);
   }
+  system("echo",($lc_done . " rehash-pairs added:")); sleep(2);
 }
 
 
