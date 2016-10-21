@@ -1,6 +1,8 @@
 package me::distress;
 use strict;
 use chobak_jsio;
+use me::valus;
+use chobaktime;
 
 
 sub trpcmd {
@@ -24,6 +26,19 @@ sub trpcmd {
   # Now we find the tell-tale string-beginning
   $lc_bgin = substr $lc_cmd, 0 , 2;
   return ( $lc_bgin eq '**' );
+}
+
+sub mortcalc {
+  my $lc_now;
+  my $lc_then;
+  
+  $lc_now = &chobaktime::nowo();
+  $lc_then = $_[0];
+  
+  if ( $lc_then > ( $lc_now + 300 ) ) { return(1>2); }
+  if ( $lc_then < ( $lc_now - ( 60 * 60 * &me::valus::look('mortality-hours') ) ) ) { return(1>2); }
+  
+  return(2>1);
 }
 
 

@@ -23,13 +23,14 @@ sub prime {
   # However - they are slated for automatic discard 36 hours after they are generated.
   if ( $_[0]->{'form'} eq 'focus' )
   {
-    my $lc2_now;
-    my $lc2_then;
-    $lc2_now = &chobaktime::nowo();
-    $lc2_then = $_[0]->{'mort'};
-    $lc_ok = 10;
-    if ( $lc2_then > ( $lc2_now + 300 ) ) { $lc_ok = 0; }
-    if ( $lc2_then < ( $lc2_now - ( 60 * 60 * &me::valus::look('mortality-hours') ) ) ) { $lc_ok = 0; }
+    if ( &me::distress::mortcalc($_[0]->{'mort'}) ) { $lc_ok = 10; }
+    #my $lc2_now;
+    #my $lc2_then;
+    #$lc2_now = &chobaktime::nowo();
+    #$lc2_then = $_[0]->{'mort'};
+    #$lc_ok = 10;
+    #if ( $lc2_then > ( $lc2_now + 300 ) ) { $lc_ok = 0; }
+    #if ( $lc2_then < ( $lc2_now - ( 60 * 60 * &me::valus::look('mortality-hours') ) ) ) { $lc_ok = 0; }
   }
   if ( $lc_ok < 5 ) {
     system("clear");

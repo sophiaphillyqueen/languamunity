@@ -8,13 +8,28 @@ package me::ask_exrc_drill;
 # will instead get auto-generated whenever the user
 # indicates the need to do repetition-drilling on a
 # specific, problematic form.
+#
+#
+# It should be noted that NOTHING in this file should EVER
+# be accessed DIRECTLY from OUTSIDE the file - with the
+# exception of the function 'prime'.
+#
+# This is because everything else is part of the internal
+# mechanics of the module.
 use chobak_json;
 
+my $qst_text;
 
 sub prime {
   my $lc_useit;
   
   &chobak_json::clone($_[0],$lc_useit);
+  
+  # The question text starts empty until stuff gets
+  # added to it:
+  $qst_text = '';
+  
+  return 10;
 }
 
 
