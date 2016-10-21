@@ -22,6 +22,10 @@ my $vallist = {
   
   # How many hours do "mortal" flash-cards remain valid?
   'mortality-hours' => 48,
+  
+  # After how many minutes are "mortal" flash-cards eligible
+  # for the purge of mortal flash-cards?
+  'mortality-minutes' => 20,
 };
 
 sub look {

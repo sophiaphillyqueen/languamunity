@@ -124,9 +124,11 @@ sub anotround {
     
     if ( $lastcomd eq 'clrm' )
     {
+      my $lc3_a;
+      $lc3_a = &me::valus::look('mortality-minutes');
       $lc_aloop = 10;
-      $arcosa->{'stng'}->{'mort'} = &chobaktime::nowo();
-      system("echo","\nExpired All Time-Limited Flashcards:\n");
+      $arcosa->{'stng'}->{'mort'} = int(&chobaktime::nowo() + 0.2 - ( 60 * $lc3_a ));
+      system("echo",("\nExpired All Time-Limited Flashcards over " . $lc3_a . " minutes old:\n"));
     }
     
     if ( $lc_aloop > 5 ) { &enter_the_prompt(); }
