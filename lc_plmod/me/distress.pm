@@ -4,6 +4,12 @@ use chobak_jsio;
 use me::valus;
 use chobaktime;
 
+my $arcosa;
+
+sub set_arcosa_var {
+  $arcosa = $_[0];
+}
+
 
 sub trpcmd {
   my $lc_cmd;
@@ -37,6 +43,13 @@ sub mortcalc {
   
   if ( $lc_then > ( $lc_now + 300 ) ) { return(1>2); }
   if ( $lc_then < ( $lc_now - ( 60 * 60 * &me::valus::look('mortality-hours') ) ) ) { return(1>2); }
+  
+  # This next litany is there so that I can manually decide
+  # to effectively clear-out all mortal flashcards.
+  if ( defined($arcosa->{'stng'}->{'mort'}) )
+  {
+    if ( $lc_then < ($arcosa->{'stng'}->{'mort'}) ) { return(1>2); }
+  }
   
   return(2>1);
 }

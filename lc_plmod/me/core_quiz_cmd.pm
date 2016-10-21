@@ -1,6 +1,7 @@
 package me::core_quiz_cmd;
 use strict;
 use chobak_io;
+use chobaktime;
 use me::longterm;
 use me::ask_smtx;
 use me::ask_subst;
@@ -35,6 +36,7 @@ sub set_arcosa_var {
     if ( $lc2_hs > 0.5 ) { $handsize = $lc2_hs; }
   }
   &me::voca::set_arcosa_var($arcosa);
+  &me::distress::set_arcosa_var($arcosa);
 }
 
 
@@ -119,6 +121,13 @@ sub anotround {
     if ( $lastcomd eq 'vc-off' ) { $lc_aloop = 10; $arcosa->{'stng'}->{'voca'} = 'off'; }
     if ( $lastcomd eq 'vc-fg' ) { $lc_aloop = 10; $arcosa->{'stng'}->{'voca'} = 'fg'; }
     if ( $lastcomd eq 'vc' ) { $lc_aloop = 10; &me::voca::aprosay(); }
+    
+    if ( $lastcomd eq 'clrm' )
+    {
+      $lc_aloop = 10;
+      $arcosa->{'stng'}->{'mort'} = &chobaktime::nowo();
+      system("echo","\nExpired All Time-Limited Flashcards:\n");
+    }
     
     if ( $lc_aloop > 5 ) { &enter_the_prompt(); }
   }
