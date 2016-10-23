@@ -58,6 +58,9 @@ sub artifice {
   my $lc_usinf;
   my $lc_success;
   
+  # Validade this card for the re-prompt:
+  &me::tally_basics::card_valid_on();
+  
   # Make sure that it is possible for the calling program to initiate
   # additional voluntary review:
   {

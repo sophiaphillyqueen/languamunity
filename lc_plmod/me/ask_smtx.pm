@@ -31,6 +31,10 @@ sub artifice {
   my @lc_alter_a; # List of prompt-lines in response to alternate answers
   my $lc_anoncia;
   
+  
+  # Validade this card for the re-prompt:
+  &me::tally_basics::card_valid_on();
+  
   # Make sure that it is possible for the calling program to initiate
   # additional voluntary review:
   {

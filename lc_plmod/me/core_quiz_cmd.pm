@@ -167,6 +167,12 @@ sub enter_the_prompt {
   my $lc_dxref;
   my $lc_dxeach;
   
+  if ( &me::tally_basics::card_valid_no() )
+  {
+    $lastcomd = '';
+    return;
+  }
+  
   foreach $lc_step (@$before_prompt)
   {
     &$lc_step();
@@ -195,7 +201,7 @@ sub enter_the_prompt {
   $lc_prmp .= "[\"h\"/\"x\"/..] JUST [enter] TO CONTINUE:> ";
   
   system("echo","-n",$lc_prmp);
-  $lastcomd = &chobak_io::inln;
+  $lastcomd = &chobak_io::inln();
 }
 
 #sub decktohand {
@@ -318,6 +324,10 @@ sub make_a_question {
   
   if ( $lc_from_prev_err < 5 ) { $lc_qus = &chobak_cstruc::ry_hat($arcosa->{'hand'}); }
   if ( $lc_from_prev_err > 5 ) { $lc_qus = &chobak_cstruc::ry_hat($arcosa->{'rehand'}); }
+  
+  # By default, all cards are presumed invalid until
+  # demonstrated to be valid.
+  &me::tally_basics::card_valid_off();
   
   &chobak_cstruc::force_hash_has_hash($lc_qus,'score');
   if ( $lc_qus->{'typ'} eq 'smtx' ) { return &me::ask_smtx::prime($lc_qus,{

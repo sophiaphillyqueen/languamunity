@@ -21,7 +21,7 @@ my $vallist = {
   'dfl-dam-height' => 0,
   
   # How many hours do "mortal" flash-cards remain valid?
-  'mortality-hours' => 48,
+  'mortality-hours' => 96,
   
   # After how many minutes are "mortal" flash-cards eligible
   # for the purge of mortal flash-cards?

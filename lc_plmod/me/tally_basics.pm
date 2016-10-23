@@ -5,6 +5,8 @@ use strict;
 my $opto_review_var;
 my $spec_vari = {};
 
+my $var_card_valid;
+
 sub complete_hand {
   my $lc_a;
   $lc_a = &chobak_cstruc::counto($_[0]->{'hand'});
@@ -64,6 +66,19 @@ sub shift_unasked_in_arcos {
 
 sub opto_review_in {
   $opto_review_var = $_[0];
+}
+
+sub card_valid_on {
+  $var_card_valid = 10;
+}
+sub card_valid_off {
+  $var_card_valid = 0;
+}
+sub card_valid_yes {
+  return ( $var_card_valid > 5 );
+}
+sub card_valid_no {
+  return ( $var_card_valid < 5 );
 }
 
 sub opto_review_out {

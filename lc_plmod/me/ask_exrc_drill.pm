@@ -37,6 +37,9 @@ sub prime {
   my $lc_allln;
   my $lc_eachln;
   
+  # Validade this card for the re-prompt:
+  &me::tally_basics::card_valid_on();
+  
   &chobak_json::clone($_[0],$active_q);
   $deckref = $_[1];
   
