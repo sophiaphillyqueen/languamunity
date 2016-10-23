@@ -33,8 +33,8 @@ sub prime {
     #if ( $lc2_then < ( $lc2_now - ( 60 * 60 * &me::valus::look('mortality-hours') ) ) ) { $lc_ok = 0; }
   }
   if ( $lc_ok < 5 ) {
-    system("clear");
-    system("echo","\nEXPIRED AND/OR MAL-FORMED FLASH-CARD --- SKIPPED:\n");
+    #system("clear");
+    #system("echo","\nEXPIRED AND/OR MAL-FORMED FLASH-CARD --- SKIPPED:\n");
     return 10;
   }
   

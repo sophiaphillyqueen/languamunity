@@ -197,7 +197,7 @@ sub rhash_last {
     $lc_howmany = int($lc_howmany - 0.8);
     $lc_done = int($lc_done + 1.2);
   }
-  system("echo",($lc_done . " rehash-pairs added:")); sleep(2);
+  system("echo",($lc_done . " rehash-pairs added:")); sleep(1);
 }
 
 
