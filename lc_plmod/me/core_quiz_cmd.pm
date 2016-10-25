@@ -105,6 +105,22 @@ sub demand_extra_review {
 }
 
 
+sub set__voca__on {
+  $arcosa->{'stng'}->{'voca'} = 'on';
+  system("echo","\nAudio repetition of answers enabled.\n");
+}
+
+sub set__voca__off {
+  $arcosa->{'stng'}->{'voca'} = 'off';
+  system("echo","\nAudio repetition of answers DEACTIVATED.\n");
+}
+
+sub set__voca__fg {
+  $arcosa->{'stng'}->{'voca'} = 'fg';
+  system("echo","\nAudio repetition of answers enabled\n  -- And in Foreground Mode.\n");
+}
+
+
 sub anotround {
   # Declearations:
   my $lc_aloop;
@@ -117,9 +133,9 @@ sub anotround {
     if ( $lastcomd eq 'rvu' ) { $lc_aloop = 10; &demand_extra_review(); }
     if ( $lastcomd eq 'dam' ) { $lc_aloop = 10; &raise_the_dam(); }
     if ( $lastcomd eq 'ldam' ) { $lc_aloop = 10; &inspect_the_dam(); }
-    if ( $lastcomd eq 'vc-on' ) { $lc_aloop = 10; $arcosa->{'stng'}->{'voca'} = 'on'; }
-    if ( $lastcomd eq 'vc-off' ) { $lc_aloop = 10; $arcosa->{'stng'}->{'voca'} = 'off'; }
-    if ( $lastcomd eq 'vc-fg' ) { $lc_aloop = 10; $arcosa->{'stng'}->{'voca'} = 'fg'; }
+    if ( $lastcomd eq 'vc-on' ) { $lc_aloop = 10; &set__voca__on(); }
+    if ( $lastcomd eq 'vc-off' ) { $lc_aloop = 10; &set__voca__off(); }
+    if ( $lastcomd eq 'vc-fg' ) { $lc_aloop = 10; &set__voca__fg(); }
     if ( $lastcomd eq 'vc' ) { $lc_aloop = 10; &me::voca::aprosay(); }
     
     if ( $lastcomd eq 'clrm' )

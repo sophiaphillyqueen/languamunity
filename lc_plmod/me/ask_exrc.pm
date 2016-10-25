@@ -138,7 +138,11 @@ sub do_ask_first {
   $lc_dat->{'answr'} = $lc_entr;
   
   $lc_ret = ($lc_dat->{'answr'} eq $lc_q->{'a'});
-  if ( $lc_ret ) { &me::voca::sayit(($lc_q->{'pre'} . $lc_q->{'a'}),$lc_q->{'voca'},{}); }
+  if ( $lc_ret )
+  {
+    #&me::voca::sayit(($lc_q->{'pre'} . $lc_q->{'a'}),$lc_q->{'voca'},{});
+    &me::ask_exrc_drill::vocalize($lc_q,$lc_q->{'voca'});
+  }
   return $lc_ret;
 }
 

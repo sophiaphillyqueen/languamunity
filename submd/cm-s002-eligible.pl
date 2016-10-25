@@ -37,6 +37,8 @@ if ( ! ( &chobak_jsonf::byref($arg_is_01,$cntrobj,$cntrpram) ) )
 $cntrd = $cntrobj->cont();
 $index = &chobak_json::readf($cntrd->{'indexfile'});
 
+&me::navig_index::mem_index($index);
+
 sub opto__old__do {
   $elim_redun = 0;
 }; &argola::setopt('-old',\&opto__old__do);

@@ -1,6 +1,12 @@
 package me::navig_index;
 use strict;
 
+my $index;
+
+sub mem_index {
+  $index = $_[0];
+}
+
 
 sub find_the_lesson {
   my $lc_allindex;
@@ -25,9 +31,39 @@ sub find_the_lesson {
   return(1>2);
 }
 
+sub substi_alias {
+  my $lc_src;
+  my $lc_dst;
+  my $lc_each;
+  ($lc_src,$lc_dst) = @_;
+  
+  if ( ref($lc_src) ne 'ARRAY' ) { return; }
+  if ( ref($lc_dst) ne 'ARRAY' )
+  {
+    $lc_dst = [];
+    $_[1] = $lc_dst;
+  }
+  
+  @$lc_dst = ();
+  if ( !(defined($index->{'alias'})) ) { @$lc_dst = @$lc_src; return; }
+  
+  foreach $lc_each (@$lc_src)
+  {
+    if ( defined($index->{'alias'}->{$lc_each}) )
+    {
+      my $lc3_a;
+      $lc3_a = $index->{'alias'}->{$lc_each};
+      @$lc_dst = (@$lc_dst,@$lc3_a);
+    } else {
+      @$lc_dst = (@$lc_dst,$lc_each);
+    }
+  }
+}
+
 sub lesson_allowed {
   my $this;
   my $lc_prereq;
+  my $lc_exprereq;
   my $lc_ctrol;
   my $lc_belt;
   my $lc_each_pr;
@@ -44,7 +80,8 @@ sub lesson_allowed {
   $lc_belt = $lc_ctrol->{'lcnon'};
   if ( ref($lc_belt) ne 'ARRAY' ) { return(1>2); }
   
-  foreach $lc_each_pr (@$lc_prereq)
+  &substi_alias($lc_prereq,$lc_exprereq);
+  foreach $lc_each_pr (@$lc_exprereq)
   {
     $lc_ok = 0;
     foreach $lc_done (@$lc_belt)

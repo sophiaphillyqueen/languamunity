@@ -21,8 +21,7 @@ use chobak_json;
 use chobak_cstruc;
 use chobaktime;
 use chobak_jsio;
-
-use chobinfodig;
+use me::core_quiz_cmd;
 
 my $qst_text;
 
@@ -69,7 +68,7 @@ sub prime {
   $lc_allln = $active_q->{'lines'};
   if ( ref($lc_allln) eq 'ARRAY' )
   {
-    foreach $lc_eachln (@$lc_allln) { &do_the_line($lc_eachln); }
+    foreach $lc_eachln (@$lc_allln) { &do_the_line($lc_eachln,$active_q->{'voca'}); }
   }
   &do_after_line();
   
@@ -157,6 +156,10 @@ sub do_the_line {
     $lc_bado = 10;
   }
   
+  # Now we vocalize it -- if applicable
+  &vocalize($_[0],$_[1]);
+  
+  
   # Is this the biggest number of mistakes?
   if ( $lc_fails > $biggest_f ) { $biggest_f = $lc_fails; }
   
@@ -165,8 +168,22 @@ sub do_the_line {
   $lastq_val = $_[0]; $lastq_set = 10;
 }
 
+sub vocalize {
+  my $lc_pre;
+  $lc_pre = $_[0]->{'pre'};
+  
+  if ( defined($_[0]->{'apre'}) ) { $lc_pre = $_[0]->{'apre'}; }
+  if ( ref($lc_pre) eq 'ARRAY' ) { $lc_pre = &chobak_cstruc::rand_item_of_array($lc_pre); }
+  if ( ref($lc_pre) eq 'ARRAY' ) { $lc_pre = &chobak_cstruc::rand_item_of_array($lc_pre); }
+  if ( ref($lc_pre) eq 'ARRAY' ) { $lc_pre = &chobak_cstruc::rand_item_of_array($lc_pre); }
+  
+  &me::voca::sayit(($lc_pre . $_[0]->{'a'}),$_[1],{});
+}
+
 sub procomd {
   if ( $_[0] eq '**rv' ) { &rhash_last(); return; }
+  if ( $_[0] eq '**vc' ) { &me::voca::aprosay(); return; }
+  if ( $_[0] eq '**vc-on' ) { &me::core_quiz_cmd::set__voca__on(); return; }
 }
 
 sub rhash_last {
@@ -182,7 +199,7 @@ sub rhash_last {
   $lc_newc->{'mort'} = &chobaktime::nowo();
   
   &chobak_cstruc::copy_fields($active_q,$lc_newc,['inst','voca','qvoca']);
-  &chobak_cstruc::copy_fields($lastq_val,$lc_newc,['pre','a']);
+  &chobak_cstruc::copy_fields($lastq_val,$lc_newc,['pre','a','apre']);
   
   system("echo","-n","\n\nHow many rehash-pairs of last COMPLETED line? [0-30] ");
   $lc_howmany = &chobak_jsio::inln();

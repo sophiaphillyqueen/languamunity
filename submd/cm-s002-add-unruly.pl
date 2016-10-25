@@ -33,6 +33,8 @@ $cntrd = $cntrobj->cont();
 &me::format_cntrol::struct_the_ref($cntrd);
 $index = &chobak_json::readf($cntrd->{'indexfile'});
 
+&me::navig_index::mem_index($index);
+
 $lessongoal = &argola::getrg();
 if ( !(&me::navig_index::find_the_lesson($lessonrec,$index,$lessongoal)) )
 {
