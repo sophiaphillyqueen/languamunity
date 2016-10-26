@@ -45,6 +45,15 @@ sub prime {
   $lc_neoques->{'q'} = &chobak_cstruc::ry_hat($lc_all_can_be);
   $lc_neoques->{'a'} = &me::name_work::resolve($_[0]->{'a'},$lc_namevar->{$lc_a_lang});
   
+  if ( defined($_[0]->{'voca'}) )
+  {
+    my $lc2_a;
+    my $lc2_b;
+    $lc2_a = $_[0]->{'voca'};
+    &chobak_json::clone($lc2_a,$lc2_b);
+    $lc_neoques->{'voca'} = $lc2_b;
+  }
+  
   if ( ref($_[0]->{'o'}) eq 'ARRAY' )
   {
     my $lc2_altern = [];

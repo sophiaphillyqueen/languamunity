@@ -165,7 +165,7 @@ sub artifice {
   }
   
   system("echo","\nCORRECT:");
-  &me::voca::sayit($lc_qus->{'a'},$lc_qus->{'voca'},{});
+  &me::voca::sayit($lc_answr,$lc_qus->{'voca'},{});
   if ( $lc_altern ne '' )
   {
     #system("echo","-n","\nAlso acceptable woud be:\n" . $lc_altern);
