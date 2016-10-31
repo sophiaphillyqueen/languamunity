@@ -171,57 +171,13 @@ sub reset_shrinkage_global_vars {
   $shrink_pro_max = 2;
   $shrink_pro_count = 0;
 }
-sub time_to_shrink {
-  my $lc_cm;
-  my $lc_osiz;
-  my $lc_nsiz;
-  my $lc_now;
-  my $lc_shrink_steps;
-  
-  $lc_shrink_steps = $shrink_pro_max;
-  if ( defined($lcnhash->{$shrink_new_lesson_code}->{'shrinksteps'}) )
-  {
-    $lc_shrink_steps = &chobak_routines::bestof_num(1,[1,$shrink_pro_max,$lcnhash->{$shrink_new_lesson_code}->{'shrinksteps'}]);
-  }
-  $shrink_pro_count = int($shrink_pro_count + $lc_shrink_steps + 0.2);
-  if ( $shrink_pro_count < ( $shrink_pro_max - 0.5 ) )
-  {
-    system("echo",(': ' . $shrink_new_lesson_code . ' : SKIP :'));
-    return;
-  }
-  $shrink_pro_count = 0;
-  
-  $lc_cm = "languamunity agri -f " . &wraprg::bsc($scratfile) . ' -cnt';
-  $lc_osiz = `$lc_cm`; chomp($lc_osiz);
-  
-  {
-    my $lc2_a;
-    my $lc2_b;
-    my $lc2_c;
-    my $lc2_z;
-    $lc2_a = $shrink_not_too_much_again;
-    $lc2_b = int($lc2_a + 1.2);
-    $lc2_c = int($lc2_a - 0.8);
-    $lc2_z = &chobak_routines::bestof_num(4,[$lc2_a,$lc2_b,$lc2_c,$lc_osiz,60,&me::valus::look('max-deck-preshort')]);
-    
-    $shrink_not_too_much_again = $lc2_z;
-    #$shrink_not_too_much_again = $lc_osiz;
-  }
-  system("echo",(": " . $shrink_new_lesson_code . ' : ' . $lc_osiz . ' -> ' . $shrink_not_too_much_again . ' :'));
-  
-  $lc_now = `date +%s`; chomp($lc_now);
-  $lc_now = ( ( $lc_now - 1476492928 ) / ( 60 * 60 * 40 ) );
-  $lc_nsiz = int(($shrink_not_too_much_again * .9) + 2 + $lc_now);
-  
-  {
-    # Don't let the post-shrink ever be more than a certain size
-    my $lc2_a;
-    $lc2_a = &me::valus::look('max-deck-postshort');
-    if ( $lc_nsiz > $lc2_a ) { $lc_nsiz = $lc2_a; }
-    system("echo",("Shrinking to size " . $lc_nsiz . ' from ' . $lc_osiz . ":"));
-  }
-  system('languamunity','agri','-ft',$scratfile,'-lm',$lc_nsiz);
+
+
+sub time_to_shrink
+{
+  system('languamunity','agri','-ft',$scratfile,'-lm',&me::valus::look('max-deck-postshort'));
 }
+
 sub agri_one_lesson {
   my $lc_lcn_rec;
   my $lc_file_array;
@@ -232,6 +188,7 @@ sub agri_one_lesson {
   
   
   &time_to_shrink();
+  system("echo",("Adding content for lesson: " . $shrink_new_lesson_code . ":"));
   
   $lc_lcn_rec = $lcnhash->{$_[0]};
   if ( ref($lc_lcn_rec) ne 'HASH' ) { return; }
