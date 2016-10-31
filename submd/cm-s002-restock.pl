@@ -8,6 +8,7 @@ use me::longterm;
 use me::valus;
 use File::Basename;
 use Cwd qw(realpath);
+use me::vrsflow;
 
 use chobinfodig;
 
@@ -55,6 +56,9 @@ $index = &chobak_json::readf($cntrd->{'indexfile'});
 $quizfile = $cntrd->{'quizfile'};
 if ( $quizfile eq '' ) { die "\nNo quiz-file specified:\n\n"; }
 
+
+&me::vrsflow::do_replace($index,$cntrd);
+$cntrobj->save();
 
 # And we gots to know where the scratch directory is
 $critdir = &me::longterm::get_crit_d();
