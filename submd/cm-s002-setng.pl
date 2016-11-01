@@ -65,6 +65,24 @@ sub opto__quizfile_do {
   
 } &argola::setopt('-quizfile',\&opto__quizfile_do);
 
+sub opto__method_do {
+  my $lc_mth;
+  my $lc_ok;
+  $lc_mth = &argola::getrg();
+  $lc_ok = 0;
+  if ( $lc_mth eq 'git' ) { $lc_ok = 10; }
+  
+  if ( $lc_ok > 5 )
+  {
+    $stndat->{'method'} = $lc_mth;
+    return;
+  }
+  
+  die ( "\n"
+    . " FATAL ERROR: No such known update-method: " . $lc_mth . ":\n"
+  . "\n");
+} &argola::setopt('-method',\&opto__method_do);
+
 &argola::runopts();
 
 $stnobj->save();
