@@ -50,11 +50,11 @@ sub do_by_git {
   $lc_cm .= ' )';
   system($lc_cm);
   
-  # Eventually, we will have a way to remove the data from the
-  # quiz-file while preserving the settings. But for now,
-  # let us just do a wholesale removal of the quizfile.
-  $lc_cm = 'rm -rf ' . &wraprg::bsc($lc_dat->{'quizfile'});
+  # Finally - we clear the quiz-file contents and do a restock
+  # of the quizfile.
+  $lc_cm = 'languamunity clear-quiz -f ' . &wraprg::bsc($lc_dat->{'quizfile'});
   system($lc_cm);
+  system("languamunity","s002-restock",$this->reffile());
   system("echo","\n\nCONTENT UPDATE COMPLETED\n\n");
   
   return(1>2);
