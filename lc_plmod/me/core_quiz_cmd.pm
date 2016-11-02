@@ -300,39 +300,7 @@ sub megadeckthand {
   &me::tally_basics::cusv_decr('dam'); # But also don't keep the dam up forever
 }
 
-sub old_megadeckthand {
-  #if ( &chobak_cstruc::counto($arcosa->{'deck'}) < 0.5 ) { return; }
-  #&decktohand(); &decktohand();
-  #if ( &chobak_cstruc::counto($arcosa->{'deck'}) < 0.5 ) { return; }
-  #&decktohand(); &decktohand();
-  #if ( &chobak_cstruc::counto($arcosa->{'deck'}) < 0.5 ) { return; }
-  #&decktohand(); &decktohand();
-  #if ( &chobak_cstruc::counto($arcosa->{'deck'}) < 0.5 ) { return; }
-  #&decktohand(); &decktohand();
-  #if ( &chobak_cstruc::counto($arcosa->{'deck'}) < 0.5 ) { return; }
-  #&decktohand(); &decktohand();
-  my $lc_count;
-  my $lc_chosen;
-  my $lc_elem;
-  
-  for ( $lc_count = 0; $lc_count < ($handsize - 0.5); $lc_count = int($lc_count + 1.2) )
-  {
-    # First recognize certain writings on the wall as signs that it is
-    # time to return;
-    if ( &me::tally_basics::complete_deck($arcosa) < 0.5 ) { return; }
-    if ( &me::tally_basics::complete_hand($arcosa) > ( $handsize - 0.5 ) ) { return; }
-    
-    # And if it is time, then we do a round:
-    $lc_chosen = &decktohand_slc();
-    if ( $lc_chosen > 5 ) {
-      $lc_elem = &chobak_cstruc::ry_hat($arcosa->{'redeck'});
-      &chobak_cstruc::ry_push($arcosa->{'rehand'},$lc_elem);
-    } else {
-      $lc_elem = &chobak_cstruc::ry_hat($arcosa->{'deck'});
-      &chobak_cstruc::ry_push($arcosa->{'hand'},$lc_elem);
-    }
-  }
-}
+
 
 sub make_a_question {
   my $lc_from_prev_err;
