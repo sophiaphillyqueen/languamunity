@@ -29,7 +29,7 @@ sub aprosay {
   {
     $lc_cm = 'languamunity';
     &wraprg::lst($lc_cm, ('say--' . $was_spspec->{'lng'}));
-    &wraprg::lst($lc_cm, $was_spspec->{'gnd'}, $was_string);
+    &wraprg::lst($lc_cm, $was_spspec->{'gnd'}, '-tx', $was_string);
     
     system($lc_cm);
   }
@@ -64,7 +64,7 @@ sub sayit {
   {
     $lc_cm = 'languamunity';
     &wraprg::lst($lc_cm, ('say--' . $lc_mdv->{'lng'}));
-    &wraprg::lst($lc_cm, $lc_mdv->{'gnd'}, $lc_cont);
+    &wraprg::lst($lc_cm, $lc_mdv->{'gnd'}, '-tx', $lc_cont);
     
     if ( $lc_bg > 5 )
     {
@@ -91,7 +91,7 @@ sub apro_say_q {
   {
     $lc_cm = 'languamunity';
     &wraprg::lst($lc_cm, ('say--' . $qas_spspec->{'lng'}));
-    &wraprg::lst($lc_cm, $qas_spspec->{'gnd'}, $qas_string);
+    &wraprg::lst($lc_cm, $qas_spspec->{'gnd'}, '-tx', $qas_string);
     
     system($lc_cm);
   }
@@ -126,7 +126,7 @@ sub say_q {
   {
     $lc_cm = 'languamunity';
     &wraprg::lst($lc_cm, ('say--' . $lc_mdv->{'lng'}));
-    &wraprg::lst($lc_cm, $lc_mdv->{'gnd'}, $lc_cont);
+    &wraprg::lst($lc_cm, $lc_mdv->{'gnd'}, '-tx', $lc_cont);
     
     if ( $lc_bg > 5 )
     {

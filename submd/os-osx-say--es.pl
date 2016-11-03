@@ -5,6 +5,9 @@ my $vario_gselc;
 my $vario_chosen;
 my $vario_csid;
 my $end_voice;
+my $ratego;
+
+$ratego = 180;
 
 my $vario_voxs = ['Juan','Angelica'];
 
@@ -21,10 +24,15 @@ sub zoomify {
 if ( $vario_gselc eq 'r1' ) { &zoomify(); }
 
 
-while ( &argola::yet() )
-{
+#while ( &argola::yet() )
+#{
+sub opto__tx_do {
   my $lc_cont;
   if ( $vario_gselc ne 'r1' ) { &zoomify(); }
   $lc_cont = &argola::getrg();
-  system("say","-v",$end_voice,(' ' . $lc_cont));
-}
+  system("say","-v",$end_voice,"-r",$ratego,(' ' . $lc_cont));
+} &argola::setopt('-tx',\&opto__tx_do);
+#}
+
+&argola::runopts();
+
