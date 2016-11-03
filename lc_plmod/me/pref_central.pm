@@ -177,7 +177,14 @@ sub reset_house {
   system("languamunity","s003-focus",($lc_ldir . "/ctrol.ref"));
   $cntrobj->refresh();
   
-  $_[1]->{'mode'} = 'ok';
+  #$_[1]->{'mode'} = 'ok';
+  &enforce_house_ok($_[0]);
+}
+
+sub enforce_house_ok {
+  my $lc_a = $cntrobj->cont();
+  $lc_a->{'houses'}->{$_[0]}->{'mode'} = 'ok';
+  $cntrobj->save();
 }
 
 
