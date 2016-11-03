@@ -28,6 +28,16 @@ this command sets the newly reinitialized
 course-taking as the Standing Default for
 the current Languamunity user.
 
+## select
+
+    languamunity select [localname]
+
+This command simply selects the house named _\[localname\]_
+as the Standing Default.
+
+This requires a pre-existing house for that purpose.
+(See __languamunity git__ to learn how to create one.)
+
 ## eligible
 
     languamunity eligible
