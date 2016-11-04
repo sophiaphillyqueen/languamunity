@@ -141,19 +141,24 @@ sub artifice {
     while ( &me::distress::trpcmd($lc_retry) )
     {
       my $lc3_where;
+      my $lc3_stshow;
+      
+      #$lc3_stshow = !($lc3_where);
+      $lc3_stshow = (2>1);
       
       $lc3_where = ( $lc_retry eq '**diff' );
       
       system("clear");
       system("echo","WRONG:\n");
       system("echo",$lc_promptx . "\n");
-      if ( !($lc3_where) )
+      if ( $lc3_stshow )
       {
         &shouldbe($lc_qus->{'a'});
         system("echo","NOT: " . $lc_answr . ' :');
       }
       if ( $lc3_where )
       {
+        system("echo");
         &diff_shouldbe($lc_qus->{'a'},$lc_answr);
       }
       system("echo","-n","\n:> ");
@@ -258,7 +263,9 @@ sub diff_shouldbe {
   if ( ref($_[0]) eq '' )
   {
     $lc_diff = &chobak_string::differ($_[0],$_[1]);
-    system("echo","The correct answer:\n   : " . $lc_diff->[2] . ' : ' . $lc_diff->[0] . ' : ' . $lc_diff->[3] . ' :');
+    system("echo","Highlighting the difference between your answer and the correct one:\n   : "
+      . $lc_diff->[2] . ' : ' . $lc_diff->[0] . ' : ' . $lc_diff->[3] . ' :'
+    );
     system("echo","NOT: " . $lc_diff->[2] . ' : ' . $lc_diff->[1] . ' : ' . $lc_diff->[3] . ' :');
     return;
   }
