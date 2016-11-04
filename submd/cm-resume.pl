@@ -5,6 +5,7 @@ use me::set_timer;
 use me::tally_basics;
 use chobak_cstruc;
 use argola;
+use chobaktime;
 use me::valus;
 
 my $arcosa;
@@ -16,6 +17,8 @@ my $qfile_val;
 my $numof_oops;
 my $numof_rqst;
 my $stat_in_round;
+my $time_begin;
+my $time_finish;
 
 &me::set_timer::these_opts();
 
@@ -33,6 +36,9 @@ sub opto__quizfile__do {
 } &argola::setopt('-quizfile',\&opto__quizfile__do);
 
 &argola::runopts();
+
+
+$time_begin = &chobaktime::nowo();
 
 
 if ( $qfile_set > 5 ) { $arcosa = &me::longterm::load_quiz_file($qfile_val); }
@@ -82,6 +88,11 @@ $stat_in_round = &chobak_cstruc::counto($arcosa->{'rehand'});
 $stat_in_round .= ':' . &chobak_cstruc::counto($arcosa->{'redeck'});
 $stat_in_round .= ' - ' . &chobak_cstruc::counto($arcosa->{'hand'});
 
+# Capture the moment that the quiz ends:
+$time_finish = &chobaktime::nowo();
+
+system("echo",("        Start time: " . &chobaktime::nm_normdate($time_begin)));
+system("echo",("          End time: " . &chobaktime::nm_normdate($time_finish)));
 system("echo",("   Status In Round: " . $stat_in_round));
 system("echo",("   START QUIZ-SIZE: " . $qsstart));
 system("echo",("     END QUIZ-SIZE: " . $qsend));
