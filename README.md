@@ -79,3 +79,10 @@ of previously-missed cards) will be cleared away
 to avoid potential conflicts with the updated
 course - but the lessons on the belt will remain
 listed and therefore do not need to be re-added.
+
+## purge
+
+    languamunity purge [localname]
+
+Completely removes from your account the house
+who's local name is _\[localname\]_.

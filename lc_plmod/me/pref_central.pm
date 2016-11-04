@@ -141,6 +141,13 @@ sub inspect_house {
   if ( !defined($lc_dat->{'houses'}->{$_[0]}) ) { return; }
   $lc_house = $lc_dat->{'houses'}->{$_[0]};
   
+  if ( $lc_house->{'mode'} eq 'clear' )
+  {
+    &clear_house($_[0],$lc_house);
+    $cntrobj->save();
+    return;
+  }
+  
   if ( $lc_house->{'mode'} eq 'reset' )
   {
     &reset_house($_[0],$lc_house);
@@ -152,6 +159,18 @@ sub inspect_house {
 sub house_loc {
   &initthis();
   return($cntrdir . '/house-' . $_[0]);
+}
+
+sub clear_house {
+  my $lc_ldir;
+  my $lc_dat;
+  $lc_ldir = &house_loc($_[0]);
+  system("rm","-rf",$lc_ldir);
+  if ( -d $lc_ldir ) { return; }
+  if ( -f $lc_ldir ) { return; }
+  $lc_dat = $cntrobj->cont();
+  delete $lc_dat->{'houses'}->{$_[0]};
+  $cntrobj->save();
 }
 
 sub reset_house {
