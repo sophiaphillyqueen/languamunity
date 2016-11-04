@@ -125,6 +125,10 @@ sub formatref {
   
   # And, of course, we need some place to store the settings:
   &chobak_cstruc::force_hash_has_hash($lc_vl,'stng');
+  
+  # I think that, from now on, the presence of vocalization
+  # should be the default.
+  &chobak_cstruc::force_hash_has_it($lc_vl->{'stng'},'voca','on');
 }
 
 
