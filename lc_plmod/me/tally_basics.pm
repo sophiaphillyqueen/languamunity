@@ -1,5 +1,6 @@
 package me::tally_basics;
 use chobak_cstruc;
+use chobaktime;
 use strict;
 
 my $opto_review_var;
@@ -45,7 +46,9 @@ sub complete_quiz {
   return int(&complete_hand($_[0]) + &complete_deck($_[0]) + 0.2);
 }
 
+
 sub shift_unasked_in_arcos {
+  my $lc_grad_today;
   
   if ( &chobak_cstruc::counto($_[0]->{'deck'}) )
   {
@@ -58,9 +61,18 @@ sub shift_unasked_in_arcos {
   &chobak_cstruc::upfrs_hrf($_[0],'hnd02',$_[0],'hnd01');
   &chobak_cstruc::upfrs_hrf($_[0],'hnd01',$_[0],'hand');
   
+  $lc_grad_today = 0;
   while ( ( &chobak_cstruc::counto($_[0]->{'hand'}) < 0.5 ) && ( &chobak_cstruc::counto($_[0]->{'mtdeck'}) > 0.5 ) )
   {
+    $lc_grad_today = 10;
     $_[0]->{'hand'} = &chobak_cstruc::ry_shift($_[0]->{'mtdeck'});
+  }
+  
+  if ( $lc_grad_today > 5 )
+  {
+    &chobak_cstruc::ry_push($_[0]->{'gradrec'}, {
+      'time' => &chobaktime::nowo(),
+    });
   }
 }
 

@@ -93,6 +93,7 @@ $time_finish = &chobaktime::nowo();
 
 system("echo",("        Start time: " . &chobaktime::nm_normdate($time_begin)));
 system("echo",("          End time: " . &chobaktime::nm_normdate($time_finish)));
+system("echo",("Round Within Level: " . &chobak_cstruc::counto($arcosa->{'gradrec'})));
 system("echo",("   Status In Round: " . $stat_in_round));
 system("echo",("   START QUIZ-SIZE: " . $qsstart));
 system("echo",("     END QUIZ-SIZE: " . $qsend));

@@ -126,6 +126,11 @@ sub formatref {
   # And, of course, we need some place to store the settings:
   &chobak_cstruc::force_hash_has_hash($lc_vl,'stng');
   
+  # A place to store information on when a a new New Questions
+  # deck is opened. This information can be useful in determining
+  # when it is time to add a new lesson.
+  &chobak_cstruc::force_hash_has_array($lc_vl,'gradrec');
+  
   # I think that, from now on, the presence of vocalization
   # should be the default.
   &chobak_cstruc::force_hash_has_it($lc_vl->{'stng'},'voca','on');

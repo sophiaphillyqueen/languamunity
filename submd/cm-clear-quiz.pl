@@ -29,6 +29,9 @@ $arcosa->{'hnd02'} = [];
 $arcosa->{'hnd03'} = [];
 $arcosa->{'mtdeck'} = [];
 
+# All records of deck graduation go as well:
+$arcosa->{'gradrec'} = [];
+
 if ( $dlt_missed > 5 )
 {
   $arcosa->{'redeck'} = [];
