@@ -189,7 +189,7 @@ sub reset_house {
   
   system("languamunity","s002-setng",($lc_ldir . "/ctrol.ref")
     ,'-indexfile',($lc_ldir . "/course/index.json")
-    ,'-quizfile',($lc_ldir . "/course/quizfile.json")
+    ,'-quizfile',($lc_ldir . "/quizfile.json")
     ,'-method','git'
   );
   
