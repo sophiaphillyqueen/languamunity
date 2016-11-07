@@ -47,6 +47,17 @@ can be added next time the current Languamunity
 user adds a lesson to the belt of the current
 Standing Default.
 
+## onbelt
+
+    languamunity onbelt
+
+Lists the lessons (and display by lesson code-ID) that
+are currently on the Standing Default house's belt.
+
+They are listed in order of when they were either added
+(if they haven't been re-added since) or last re-added
+(if they have been) - from earliest to most recent.
+
 ## quiz
 
     languamunity quiz

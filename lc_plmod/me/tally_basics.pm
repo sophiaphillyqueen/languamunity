@@ -53,7 +53,7 @@ sub shift_unasked_in_arcos {
   if ( &chobak_cstruc::counto($_[0]->{'deck'}) )
   {
     &chobak_cstruc::ry_push($_[0]->{'mtdeck'},$_[0]->{'deck'});
-    $_[0]->{'hand'} = [];
+    $_[0]->{'deck'} = [];
   }
   
   &chobak_cstruc::upfrs_hrf($_[0],'deck',$_[0],'hnd03');
