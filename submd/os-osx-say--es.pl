@@ -1,4 +1,5 @@
 use strict;
+use me::saylib;
 use argola;
 
 my $vario_gselc;
@@ -6,6 +7,7 @@ my $vario_chosen;
 my $vario_csid;
 my $end_voice;
 my $ratego;
+my @contray = ();
 
 $ratego = 180;
 
@@ -27,12 +29,24 @@ if ( $vario_gselc eq 'r1' ) { &zoomify(); }
 #while ( &argola::yet() )
 #{
 sub opto__tx_do {
-  my $lc_cont;
-  if ( $vario_gselc ne 'r1' ) { &zoomify(); }
-  $lc_cont = &argola::getrg();
-  system("say","-v",$end_voice,"-r",$ratego,(' ' . $lc_cont));
+  @contray = (@contray,&argola::getrg());
 } &argola::setopt('-tx',\&opto__tx_do);
 #}
 
 &argola::runopts();
+
+{
+  my @lc_cont;
+  @lc_cont = @contray;
+  @contray = &me::saylib::slashlist(@lc_cont);
+}
+
+{
+  my $lc_cont;
+  foreach $lc_cont (@contray)
+  {
+    if ( $vario_gselc ne 'r1' ) { &zoomify(); }
+    system("say","-v",$end_voice,"-r",$ratego,(' ' . $lc_cont));
+  }
+}
 

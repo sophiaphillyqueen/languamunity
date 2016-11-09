@@ -13,7 +13,7 @@ use me::vrsflow;
 use chobinfodig;
 
 #my $desired_quiz_size = 400;
-my $max_questions = 250;
+my $max_questions = 350;
 
 my $cntrpram; # Parameters for opening the control file
 my $cntrobj; # Control object for the control-file data
