@@ -13,7 +13,10 @@ use me::vrsflow;
 use chobinfodig;
 
 #my $desired_quiz_size = 400;
-my $max_questions = 350;
+my $rt_max_questions = 350;
+my $max_questions;
+
+my $control_file; # The control-file as obtained from command-line:
 
 my $cntrpram; # Parameters for opening the control file
 my $cntrobj; # Control object for the control-file data
@@ -39,6 +42,18 @@ my $shrink_new_lesson_code;
 my $shrink_pro_max;
 my $shrink_pro_count;
 
+# Some variables are initialized based on others:
+$max_questions = $rt_max_questions;
+
+# Now let us deal with the command line:
+$control_file = &argola::getrg();
+
+sub opto__major_do {
+  $max_questions = int(($rt_max_questions * 10) + 0.2);
+} &argola::setopt('-major',\&opto__major_do);
+
+&argola::runopts();
+
 
 # First the litany that loads the Control File and the Index
 # File - as well as identifies the locations of both those plus
@@ -47,7 +62,7 @@ $cntrpram = {
   'rtyp' => 'h',
   'create' => 'no',
 };
-if ( ! ( &chobak_jsonf::byref(&argola::getrg(),$cntrobj,$cntrpram) ) )
+if ( ! ( &chobak_jsonf::byref($control_file,$cntrobj,$cntrpram) ) )
 {
   die "\nFailed to open the file\n\n";
 }
