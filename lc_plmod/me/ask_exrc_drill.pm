@@ -110,7 +110,10 @@ sub do_after_line {
   {
     &procomd($lc_cm);
     system("clear");
-    system("echo","-n",("DONE\n\n" . $qst_text . "\n\n" . '[Any last in-card commands?]> '));
+    system("echo","-n",("DONE\n\n" . $qst_text
+      . "\n\n" . '[err=' . $biggest_f
+      . '][Any last in-card commands?]> '))
+    ;
   }
 }
 

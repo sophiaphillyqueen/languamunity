@@ -48,6 +48,30 @@ $max_questions = $rt_max_questions;
 # Now let us deal with the command line:
 $control_file = &argola::getrg();
 
+sub opto__mj_do {
+  my $lc_upgr;
+  my $lc_max;
+  
+  $lc_max = 10;
+  $lc_upgr = &argola::getrg();
+  $lc_upgr = ((int((10 * $lc_upgr) + 0.45)) / 10);
+  if ( $lc_upgr < 1 ) { $lc_upgr = 1; }
+  if ( $lc_upgr > $lc_max ) { $lc_upgr = $lc_max; }
+  $max_questions = int(($rt_max_questions * $lc_upgr) + 0.2);
+} &argola::setopt('-mj',\&opto__mj_do);
+
+sub opto__bk_do {
+  my $lc_upgr;
+  my $lc_max;
+  
+  $lc_max = int(($rt_max_questions * 9) + 0.2);
+  $lc_upgr = &argola::getrg();
+  $lc_upgr = int($lc_upgr + 0.45);
+  if ( $lc_upgr < 0 ) { $lc_upgr = 0; }
+  if ( $lc_upgr > $lc_max ) { $lc_upgr = $lc_max; }
+  $max_questions = int($rt_max_questions + $lc_upgr + 0.2);
+} &argola::setopt('-bk',\&opto__bk_do);
+
 sub opto__major_do {
   $max_questions = int(($rt_max_questions * 10) + 0.2);
 } &argola::setopt('-major',\&opto__major_do);

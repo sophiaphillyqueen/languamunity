@@ -223,7 +223,7 @@ sub enter_the_prompt {
   $lc_prmp .= &chobak_cstruc::counto($arcosa->{'hnd03'});
   $lc_prmp .= ':';
   $lc_prmp .= &chobak_cstruc::counto($arcosa->{'deck'});
-  $lc_prmp .= "[\"h\"/\"x\"/..] JUST [enter] TO CONTINUE:> ";
+  $lc_prmp .= "\n\n[\"h\"/\"x\"/..] JUST [enter] TO CONTINUE:> ";
   
   system("echo","-n",$lc_prmp);
   $lastcomd = &chobak_io::inln();
