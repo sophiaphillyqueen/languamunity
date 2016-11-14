@@ -22,6 +22,7 @@ use chobak_cstruc;
 use chobaktime;
 use chobak_jsio;
 use me::core_quiz_cmd;
+use me::head_elsewhere;
 
 my $qst_text;
 
@@ -187,6 +188,7 @@ sub procomd {
   if ( $_[0] eq '**rv' ) { &rhash_last(); return; }
   if ( $_[0] eq '**vc' ) { &me::voca::aprosay(); return; }
   if ( $_[0] eq '**vc-on' ) { &me::core_quiz_cmd::set__voca__on(); return; }
+  if ( $_[0] eq '**out' ) { &me::head_elsewhere::haltquiz(); return; }
 }
 
 sub rhash_last {

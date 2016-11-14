@@ -9,6 +9,7 @@ use me::tally_basics;
 use me::voca;
 use me::distress;
 use chobak_string;
+use me::head_elsewhere;
 
 sub prime {
   my $lc_useit;
@@ -147,6 +148,8 @@ sub artifice {
       $lc3_stshow = (2>1);
       
       $lc3_where = ( $lc_retry eq '**diff' );
+      
+      if ( $lc_retry eq '**out' ) { &me::head_elsewhere::haltquiz(); }
       
       system("clear");
       system("echo","WRONG:\n");
