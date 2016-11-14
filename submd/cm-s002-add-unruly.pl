@@ -84,6 +84,7 @@ if ( $quizfile ne '' )
 }
 
 system("echo",("ADDED LESSON: " . $lessongoal));
+system("languamunity","s002-lcnlect",'-idcd',$lessongoal);
 
 
 
