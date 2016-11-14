@@ -9,6 +9,7 @@ use me::ask_exrc;
 use me::tally_basics;
 use me::valus;
 use me::voca;
+use me::head_elsewhere;
 
 
 my $arcosa;
@@ -137,6 +138,9 @@ sub anotround {
     if ( $lastcomd eq 'vc-off' ) { $lc_aloop = 10; &set__voca__off(); }
     if ( $lastcomd eq 'vc-fg' ) { $lc_aloop = 10; &set__voca__fg(); }
     if ( $lastcomd eq 'vc' ) { $lc_aloop = 10; &me::voca::aprosay(); }
+    
+    if ( $lastcomd eq 'out' ) { $lc_aloop = 10; &me::head_elsewhere::haltquiz(); }
+    if ( $lastcomd eq '**out' ) { $lc_aloop = 10; &me::head_elsewhere::haltquiz(); }
     
     if ( $lastcomd eq 'clrm' )
     {
