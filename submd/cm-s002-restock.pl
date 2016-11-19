@@ -13,7 +13,7 @@ use me::vrsflow;
 use chobinfodig;
 
 #my $desired_quiz_size = 400;
-my $rt_max_questions = 350;
+my $rt_max_questions;
 my $max_questions;
 
 my $control_file; # The control-file as obtained from command-line:
@@ -41,6 +41,9 @@ my $shrink_not_too_much_again;
 my $shrink_new_lesson_code;
 my $shrink_pro_max;
 my $shrink_pro_count;
+
+# Some variables are initiated from the 'me::valus' module:
+$rt_max_questions = &me::valus::look('min-unasked-cards');
 
 # Some variables are initialized based on others:
 $max_questions = $rt_max_questions;

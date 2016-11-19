@@ -26,6 +26,9 @@ my $vallist = {
   # After how many minutes are "mortal" flash-cards eligible
   # for the purge of mortal flash-cards?
   'mortality-minutes' => 20,
+  
+  # How many unasked cards minimum whenever a quiz session starts?
+  'min-unasked-cards' => 250,
 };
 
 sub look {
