@@ -102,4 +102,32 @@ system("echo",("Rehashes Requested: " . $numof_rqst));
 system("echo",(" NET CARDS CLEARED: " . $qsadv));
 
 
+# ########################## #
+# ##  SAVE THIS HISTORY:  ## #
+# ########################## #
+
+&chobak_cstruc::ry_push($arcosa->{'pastuse'},{
+  'start' => $time_begin,
+  'stop' => $time_finish,
+  'round' => &chobak_cstruc::counto($arcosa->{'gradrec'}),
+});
+&maybe_skim(); sub maybe_skim {
+  my $lc_now;
+  my $lc_dawnof;
+  
+  # Don't purge if that would bring the number of records down below five
+  if ( &chobak_cstruc::counto($arcosa->{'pastuse'}) < 6.5 ) { return; }
+  
+  # Don't purge if the second-oldest record is less than eight days old.
+  $lc_now = &chobaktime::nowo();
+  $lc_dawnof = int(($lc_now - (60 * 60 * 24 * 8)) + 0.2);
+  if ( $lc_dawnof < $arcosa->{'pastuse'}->[1]->{'stop'} ) { return; }
+  
+  # If permitted to, though, we purge the oldest two records.
+  &chobak_cstruc::ry_shift($arcosa->{'pastuse'});
+  &chobak_cstruc::ry_shift($arcosa->{'pastuse'});
+}
+&me::longterm::save($arcosa);
+
+
 

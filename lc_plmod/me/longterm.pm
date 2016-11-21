@@ -131,6 +131,11 @@ sub formatref {
   # when it is time to add a new lesson.
   &chobak_cstruc::force_hash_has_array($lc_vl,'gradrec');
   
+  # A place to store the history of the past so-many sessions
+  # (not including those abandoned with 'out' and '**out')
+  # so as to verify that I am using this program enough.
+  &chobak_cstruc::force_hash_has_array($lc_vl,'pastuse');
+  
   # I think that, from now on, the presence of vocalization
   # should be the default.
   &chobak_cstruc::force_hash_has_it($lc_vl->{'stng'},'voca','on');
