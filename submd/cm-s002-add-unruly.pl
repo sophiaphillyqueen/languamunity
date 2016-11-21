@@ -18,6 +18,7 @@ my $lessonrec;
 my $quizfile;
 my $iface;
 my $arg_is_01;
+my $restock_ok = 10;
 
 $cntrpram = {
   'rtyp' => 'h',
@@ -40,6 +41,18 @@ if ( !(&me::navig_index::find_the_lesson($lessonrec,$index,$lessongoal)) )
 {
   die("\nFATAL ERROR: No such lesson: " . $lessongoal . ":\n\n");
 }
+
+
+# NOW WE BEGIN WITH THE DEAL WITH OPTIONS
+
+
+sub opto__no_restock__do {
+  $restock_ok = 0;
+} &argola::setopt('--no-restock',\&opto__no_restock__do);
+
+
+&argola::runopts();
+# NOW WE END THE WHOLE DEAL WITH OPTIONS
 
 
 # On second thought - we do care if the lesson is allowed.
@@ -80,7 +93,10 @@ $quizfile = $cntrd->{'quizfile'};
 if ( $quizfile ne '' )
 {
   system("languamunity","clear-quiz","-f",$quizfile,"-pmiss");
-  system("languamunity","s002-restock",$cntrobj->reffile());
+  if ( $restock_ok > 5 )
+  {
+    system("languamunity","s002-restock",$cntrobj->reffile());
+  }
 }
 
 system("echo",("ADDED LESSON: " . $lessongoal));
