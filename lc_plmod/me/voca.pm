@@ -29,10 +29,38 @@ sub aprosay {
   {
     $lc_cm = 'languamunity';
     &wraprg::lst($lc_cm, ('say--' . $was_spspec->{'lng'}));
+    
+    &queryalternate($lc_cm,$was_spspec->{'lng'});
+    
     &wraprg::lst($lc_cm, $was_spspec->{'gnd'}, '-tx', $was_string);
     
     system($lc_cm);
   }
+}
+
+sub queryalternate {
+  # This function exists for the sole purpose to see if there
+  # is on the system an overriding alternate speech-synthesis
+  # module for the particular language. Argument 0 is the
+  # in-progress command string that will remain unaltered if
+  # the module we look for isn't found - but which will be
+  # overwritten if it is. Argument 1 is the language-code of
+  # the module we are looking for.
+  my $lc_goal;
+  my $lc_cm;
+  my $lc_ret;
+  
+  # First we do the query.
+  $lc_goal = "languamunity-say--" . $_[1];
+  $lc_cm = "which " . &wraprg::bsc($lc_goal);
+  $lc_ret = `$lc_cm`; chomp($lc_ret);
+  
+  # Now we return without changing anything if the query failed.
+  if ( $lc_ret eq '' ) { return; }
+  
+  # But if the query succeeded - we use it's result to overwrite
+  # the command string:
+  $_[0] = &wraprg::bsc($lc_ret);
 }
 
 sub sayit {
@@ -64,6 +92,10 @@ sub sayit {
   {
     $lc_cm = 'languamunity';
     &wraprg::lst($lc_cm, ('say--' . $lc_mdv->{'lng'}));
+    
+    &queryalternate($lc_cm,$was_spspec->{'lng'});
+    
+    
     &wraprg::lst($lc_cm, $lc_mdv->{'gnd'}, '-tx', $lc_cont);
     
     if ( $lc_bg > 5 )
