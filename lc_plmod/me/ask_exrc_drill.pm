@@ -187,8 +187,19 @@ sub vocalize {
 sub procomd {
   if ( $_[0] eq '**rv' ) { &rhash_last(); return; }
   if ( $_[0] eq '**vc' ) { &me::voca::aprosay(); return; }
-  if ( $_[0] eq '**vc-on' ) { &me::core_quiz_cmd::set__voca__on(); return; }
   if ( $_[0] eq '**out' ) { &me::head_elsewhere::haltquiz(); return; }
+  if ( $_[0] eq '**vc-off' )
+  {
+    &me::core_quiz_cmd::set__voca__off();
+    sleep(2);
+    return;
+  }
+  if ( $_[0] eq '**vc-on' )
+  {
+    &me::core_quiz_cmd::set__voca__on();
+    sleep(2);
+    return;
+  }
 }
 
 sub rhash_last {

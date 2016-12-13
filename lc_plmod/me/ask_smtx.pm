@@ -100,6 +100,16 @@ sub artifice {
         system("echo","\n\nDEFERRED (but not forgotten)\n\n");
         return 10;
       }
+      if ( $lc_answr eq '**vc-off' )
+      {
+        &me::core_quiz_cmd::set__voca__off();
+        sleep(2);
+      }
+      if ( $lc_answr eq '**vc-on' )
+      {
+        &me::core_quiz_cmd::set__voca__on();
+        sleep(2);
+      }
       
       system("clear");
       system("echo",$lc_anoncia . ":\n");
