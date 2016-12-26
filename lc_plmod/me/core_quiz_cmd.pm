@@ -15,6 +15,7 @@ use me::head_elsewhere;
 my $arcosa;
 my $lastcomd = '';
 my $handsize;
+my $informa = undef;
 
 my $before_prompt = [];
 my $before_resume = [];
@@ -106,6 +107,22 @@ sub demand_extra_review {
 }
 
 
+sub about_the_info {
+  my $lc_info;
+  $lc_info = &retv_the_info();
+  if ( !(defined($lc_info)) )
+  {
+    system("echo","\nNo question-place information found:\n");
+    return;
+  }
+  system("echo",("\nQuestion Source: " . $lc_info . ":\n"));
+}
+sub retv_the_info {
+  if ( !(defined($informa)) ) { return $informa; }
+  return $informa->{'shrt'};
+}
+
+
 sub set__voca__on {
   $arcosa->{'stng'}->{'voca'} = 'on';
   system("echo","\nAudio repetition of answers enabled.\n");
@@ -138,6 +155,7 @@ sub anotround {
     if ( $lastcomd eq 'vc-off' ) { $lc_aloop = 10; &set__voca__off(); }
     if ( $lastcomd eq 'vc-fg' ) { $lc_aloop = 10; &set__voca__fg(); }
     if ( $lastcomd eq 'vc' ) { $lc_aloop = 10; &me::voca::aprosay(); }
+    if ( $lastcomd eq 'info' ) { $lc_aloop = 10; &about_the_info(); }
     
     if ( $lastcomd eq 'out' ) { $lc_aloop = 10; &me::head_elsewhere::haltquiz(); }
     if ( $lastcomd eq '**out' ) { $lc_aloop = 10; &me::head_elsewhere::haltquiz(); }
@@ -327,6 +345,7 @@ sub make_a_question {
   &me::tally_basics::card_valid_off();
   
   &chobak_cstruc::force_hash_has_hash($lc_qus,'score');
+  $informa = $lc_qus->{'info'};
   if ( $lc_qus->{'typ'} eq 'smtx' ) { return &me::ask_smtx::prime($lc_qus,{
     'main' => $arcosa,
   }); }

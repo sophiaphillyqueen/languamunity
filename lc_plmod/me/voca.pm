@@ -27,7 +27,7 @@ sub aprosay {
   
   if ( $was_spspec->{'typ'} eq 'synth' )
   {
-    $lc_cm = 'languamunity';
+    $lc_cm = 'languamunity001';
     &wraprg::lst($lc_cm, ('say--' . $was_spspec->{'lng'}));
     
     &queryalternate($lc_cm,$was_spspec->{'lng'});
@@ -90,7 +90,7 @@ sub sayit {
   
   if ( $lc_mdv->{'typ'} eq 'synth' )
   {
-    $lc_cm = 'languamunity';
+    $lc_cm = 'languamunity001';
     &wraprg::lst($lc_cm, ('say--' . $lc_mdv->{'lng'}));
     
     &queryalternate($lc_cm,$was_spspec->{'lng'});
@@ -121,7 +121,7 @@ sub apro_say_q {
   
   if ( $qas_spspec->{'typ'} eq 'synth' )
   {
-    $lc_cm = 'languamunity';
+    $lc_cm = 'languamunity001';
     &wraprg::lst($lc_cm, ('say--' . $qas_spspec->{'lng'}));
     &wraprg::lst($lc_cm, $qas_spspec->{'gnd'}, '-tx', $qas_string);
     
@@ -156,7 +156,7 @@ sub say_q {
   
   if ( $lc_mdv->{'typ'} eq 'synth' )
   {
-    $lc_cm = 'languamunity';
+    $lc_cm = 'languamunity001';
     &wraprg::lst($lc_cm, ('say--' . $lc_mdv->{'lng'}));
     &wraprg::lst($lc_cm, $lc_mdv->{'gnd'}, '-tx', $lc_cont);
     

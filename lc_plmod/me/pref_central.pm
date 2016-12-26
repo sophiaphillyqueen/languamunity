@@ -187,13 +187,13 @@ sub reset_house {
     $lc_ok = 10;
   }
   
-  system("languamunity","s002-setng",($lc_ldir . "/ctrol.ref")
+  system("languamunity001","s002-setng",($lc_ldir . "/ctrol.ref")
     ,'-indexfile',($lc_ldir . "/course/index.json")
     ,'-quizfile',($lc_ldir . "/quizfile.json")
     ,'-method','git'
   );
   
-  system("languamunity","s003-focus",($lc_ldir . "/ctrol.ref"));
+  system("languamunity001","s003-focus",($lc_ldir . "/ctrol.ref"));
   $cntrobj->refresh();
   
   #$_[1]->{'mode'} = 'ok';

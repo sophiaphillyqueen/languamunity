@@ -25,7 +25,7 @@ if ( !(&argola::yet()) )
   . "\n");
 }
 
-@cmdon = ("languamunity",&argola::getrg(),$maindat->{'focus'});
+@cmdon = ("languamunity001",&argola::getrg(),$maindat->{'focus'});
 while ( &argola::yet() )
 {
   @cmdon = (@cmdon,&argola::getrg());

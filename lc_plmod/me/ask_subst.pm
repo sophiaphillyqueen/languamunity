@@ -54,6 +54,15 @@ sub prime {
     $lc_neoques->{'voca'} = $lc2_b;
   }
   
+  if ( defined($_[0]->{'info'}) )
+  {
+    my $lc2_a;
+    my $lc2_b;
+    $lc2_a = $_[0]->{'info'};
+    &chobak_json::clone($lc2_a,$lc2_b);
+    $lc_neoques->{'info'} = $lc2_b;
+  }
+  
   if ( ref($_[0]->{'o'}) eq 'ARRAY' )
   {
     my $lc2_altern = [];

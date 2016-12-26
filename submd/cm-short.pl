@@ -3,7 +3,7 @@ use argola;
 
 my @cmdo;
 
-@cmdo = ("languamunity","resume");
+@cmdo = ("languamunity001","resume");
 while ( &argola::yet() )
 {
   @cmdo = (@cmdo,&argola::getrg());

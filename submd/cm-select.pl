@@ -20,7 +20,7 @@ if ( !defined($crucdat->{'houses'}->{$pickname}) )
 
 &me::pref_central::full_housekeeping();
 
-exec("languamunity","s003-focus",(&me::pref_central::house_loc($pickname) . '/ctrol.ref'));
+exec("languamunity001","s003-focus",(&me::pref_central::house_loc($pickname) . '/ctrol.ref'));
 
 
 

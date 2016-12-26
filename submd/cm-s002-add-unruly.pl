@@ -92,15 +92,15 @@ $cntrobj->save();
 $quizfile = $cntrd->{'quizfile'};
 if ( $quizfile ne '' )
 {
-  system("languamunity","clear-quiz","-f",$quizfile,"-pmiss");
+  system("languamunity001","clear-quiz","-f",$quizfile,"-pmiss");
   if ( $restock_ok > 5 )
   {
-    system("languamunity","s002-restock",$cntrobj->reffile());
+    system("languamunity001","s002-restock",$cntrobj->reffile());
   }
 }
 
 system("echo",("ADDED LESSON: " . $lessongoal));
-system("languamunity","s002-lcnlect",$arg_is_01,'-idcd',$lessongoal);
+system("languamunity001","s002-lcnlect",$arg_is_01,'-idcd',$lessongoal);
 
 
 

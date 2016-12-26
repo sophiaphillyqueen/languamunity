@@ -53,25 +53,25 @@ sub do_by_git {
   # Finally - we clear the quiz-file contents and do a restock
   # of the quizfile.
   
-  $lc_cm = 'languamunity clear-quiz -f ' . &wraprg::bsc($lc_dat->{'quizfile'});
+  $lc_cm = 'languamunity001 clear-quiz -f ' . &wraprg::bsc($lc_dat->{'quizfile'});
   system($lc_cm);
-  system("languamunity","s002-restock",$this->reffile());
+  system("languamunity001","s002-restock",$this->reffile());
   
   if ( 1 > 2 )
   {
-    $lc_cm = 'languamunity clear-quiz -f ' . &wraprg::bsc($lc_dat->{'quizfile'});
+    $lc_cm = 'languamunity001 clear-quiz -f ' . &wraprg::bsc($lc_dat->{'quizfile'});
     system($lc_cm);
-    system("languamunity","s002-restock",$this->reffile());
+    system("languamunity001","s002-restock",$this->reffile());
     
-    $lc_cm = 'languamunity clear-quiz -f ' . &wraprg::bsc($lc_dat->{'quizfile'});
+    $lc_cm = 'languamunity001 clear-quiz -f ' . &wraprg::bsc($lc_dat->{'quizfile'});
     $lc_cm .= ' -pmiss';
     system($lc_cm);
-    system("languamunity","s002-restock",$this->reffile());
+    system("languamunity001","s002-restock",$this->reffile());
     
-    $lc_cm = 'languamunity clear-quiz -f ' . &wraprg::bsc($lc_dat->{'quizfile'});
+    $lc_cm = 'languamunity001 clear-quiz -f ' . &wraprg::bsc($lc_dat->{'quizfile'});
     $lc_cm .= ' -pmiss';
     system($lc_cm);
-    system("languamunity","s002-restock",$this->reffile());
+    system("languamunity001","s002-restock",$this->reffile());
   }
   
   system("echo","\n\nCONTENT UPDATE COMPLETED\n\n");

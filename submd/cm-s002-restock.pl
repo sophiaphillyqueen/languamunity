@@ -126,7 +126,7 @@ $lcnhash = {};
 
 # Now - before we find the new sources of names, let us
 # purge previous names from the quiz-file
-system("languamunity","clear-names",'-f',$quizfile);
+system("languamunity001","clear-names",'-f',$quizfile);
 
 # And we will now go through the list of lessons in the
 # belt - and re-add the names to the quiz-file
@@ -172,12 +172,12 @@ sub add_the_res {
   # Add the item to the list of already-used resource files -
   # so as to avoid redundancies
   @used_resd = (@used_resd,$_[0]);
-  system("languamunity","qsp-take",'-to',$quizfile,'-in',$lc_fullo);
+  system("languamunity001","qsp-take",'-to',$quizfile,'-in',$lc_fullo);
 }
 sub howmany {
   my $lc_cm;
   my $lc_rt;
-  $lc_cm = "languamunity statlli -f " . &wraprg::bsc($quizfile) . " unasked";
+  $lc_cm = "languamunity001 statlli -f " . &wraprg::bsc($quizfile) . " unasked";
   $lc_rt = `$lc_cm`;
   chomp($lc_rt);
   return $lc_rt;
@@ -205,7 +205,7 @@ while ( ( &howmany() < $max_questions ) && ( $countor < $max_questions ) )
   $scratfile = $scratdir . '/holding.json';
   &reset_shrinkage_global_vars();
   foreach $lc_lcn_tag (@$lcnlist) { &agri_one_lesson($lc_lcn_tag); }
-  system("languamunity",'qsp-take','-to',$quizfile,'-in',$scratfile);
+  system("languamunity001",'qsp-take','-to',$quizfile,'-in',$scratfile);
 }
 
 sub reset_shrinkage_global_vars {
@@ -217,7 +217,7 @@ sub reset_shrinkage_global_vars {
 
 sub time_to_shrink
 {
-  system('languamunity','agri','-ft',$scratfile,'-lm',&me::valus::look('max-deck-postshort'));
+  system('languamunity001','agri','-ft',$scratfile,'-lm',&me::valus::look('max-deck-postshort'));
 }
 
 sub agri_one_lesson {
@@ -240,7 +240,7 @@ sub agri_one_lesson {
   foreach $lc_file_item (@$lc_file_array)
   {
     $lc_file_location = &relativo(&extrac_f_loc($lc_file_item),$cntrd->{'indexfile'});
-    system("languamunity",'agri','-ft',$scratfile,'-f',$lc_file_location);
+    system("languamunity001",'agri','-ft',$scratfile,'-f',$lc_file_location);
   }
 }
 

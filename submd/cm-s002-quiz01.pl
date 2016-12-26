@@ -38,7 +38,7 @@ sub opto__dam__do {
 &argola::runopts();
 
 
-system("languamunity","s002-restock",$cntrobj->reffile());
+system("languamunity001","s002-restock",$cntrobj->reffile());
 
 # Now we see how this effects our level
 $cntrd = $cntrobj->refresh();
@@ -55,7 +55,7 @@ while ( $newrounds > 0.5 )
 $cntrobj->save();
 
 
-@quizcm = ("languamunity","resume","-quizfile",$quizfile,"-time",5,0);
+@quizcm = ("languamunity001","resume","-quizfile",$quizfile,"-time",5,0);
 if ( $dam_set > 5 ) { @quizcm = (@quizcm,"-dam",$dam_size); }
 exec(@quizcm);
 
